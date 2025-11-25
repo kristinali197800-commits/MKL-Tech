@@ -127,6 +127,38 @@ img {
   width: 100%;
 }
 
+/* Mobile nav toggle (hamburger) */
+
+.nav-toggle {
+  display: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  position: relative;
+}
+
+.nav-toggle span {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  transition: transform 0.2s ease, opacity 0.2s ease, top 0.2s ease,
+    bottom 0.2s ease;
+}
+
+.nav-toggle span:nth-child(1) {
+  top: 9px;
+}
+
+.nav-toggle span:nth-child(2) {
+  bottom: 9px;
+}
+
 /* HERO */
 
 .hero {
@@ -508,7 +540,27 @@ textarea:focus {
   .hero {
     padding-top: 2.1rem;
   }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
   .nav-links {
     display: none;
+    position: absolute;
+    top: 56px;
+    right: 1.25rem;
+    background: #020617;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+    z-index: 40;
+  }
+
+  .nav-links.open {
+    display: flex;
   }
 }
