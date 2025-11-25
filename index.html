@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MKL Tech – Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-left">
+      <div class="nav-logo">
+        <img src="logo.png" alt="MKL Tech logo">
+      </div>
+      <div>
+        <div class="nav-brand">MKL Tech</div>
+        <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="research.html">Research</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrapper">
+  <section class="hero">
+    <div>
+      <div class="hero-badge">
+        <span class="hero-dot"></span>
+        <span>Custom PCs • Upgrades • Repairs • Tech parts</span>
+      </div>
+      <h1>High-performance, affordable PCs,<br>built for real people.</h1>
+      <p class="hero-sub">
+        We build stable, affordable, high-performance computers for students,
+        families, creators, and budget-conscious users who need reliable tech without overspending.
+      </p>
+      <p class="hero-focus">
+        <span>Primary focus: cost-conscious users &amp; families</span>
+      </p>
+      <div class="hero-cta">
+        <a href="contact.html" class="btn-primary">Reach out about a build →</a>
+        <a href="services.html" class="btn-outline">View services &amp; pricing</a>
+      </div>
+      <p class="hero-meta">
+        Based in Cherry Hill, NJ · Serving local pickup & nearby delivery.
+      </p>
+    </div>
+
+    <div>
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title">What MKL Tech does</h2>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <span class="badge-soft">Custom Builds</span>
+            <h3>Custom &amp; refurbished PCs</h3>
+            <p>Gaming, school, and creator-ready builds tuned to your budget and real-world workload.</p>
+          </article>
+          <article class="card">
+            <span class="badge-soft">Upgrades</span>
+            <h3>Upgrades &amp; performance fixes</h3>
+            <p>RAM, SSDs, GPUs, and airflow tuning to make older systems feel brand new again.</p>
+          </article>
+          <article class="card">
+            <span class="badge-soft">Repairs</span>
+            <h3>Diagnostics &amp; repairs</h3>
+            <p>Slow machines, random crashes, or no-boot problems — we help you fix it, not replace it.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">Who MKL Tech is for</h2>
+      <p class="section-muted">If you care more about stability and value than flashy RGB, you’re in the right place.</p>
+    </div>
+    <div class="card-grid">
+      <article class="card">
+        <h3>Students &amp; families</h3>
+        <p>Reliable homework, Zoom, and light-gaming PCs that don’t wreck the family budget.</p>
+      </article>
+      <article class="card">
+        <h3>Creators &amp; side-hustlers</h3>
+        <p>Machines tuned for editing, design, and productivity without paying for parts you won’t use.</p>
+      </article>
+      <article class="card">
+        <h3>Budget-limited users</h3>
+        <p>We’ll explain every part choice, show cost trade-offs, and help you find the best option in your price range.</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
+    <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
+  </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</footer>
+</body>
+</html>

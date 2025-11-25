@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Services – MKL Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-left">
+      <div class="nav-logo">
+        <img src="logo.png" alt="MKL Tech logo">
+      </div>
+      <div>
+        <div class="nav-brand">MKL Tech</div>
+        <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="research.html">Research</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrapper">
+  <section class="page-hero">
+    <h1>Services</h1>
+    <p>Clear, affordable help for your current PC or your next build.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">Custom PCs</h2>
+      <p class="section-muted">We walk you through every part choice and keep you on budget.</p>
+    </div>
+    <div class="card-grid">
+      <article class="card">
+        <h3>Budget / School builds</h3>
+        <p>Stable systems for school, office work, and light gaming — built to last, not to flex.</p>
+      </article>
+      <article class="card">
+        <h3>Creator &amp; productivity builds</h3>
+        <p>CPU- and RAM-optimized builds for editing, design, and multitasking heavy workloads.</p>
+      </article>
+      <article class="card">
+        <h3>Gaming builds</h3>
+        <p>Balanced FPS for the price — no overpriced RGB or wasted power where you don’t need it.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">Upgrades &amp; Repairs</h2>
+      <p class="section-muted">Breathe new life into the PC you already own.</p>
+    </div>
+    <div class="card-grid">
+      <article class="card">
+        <h3>Performance upgrades</h3>
+        <p>SSD, RAM, and GPU upgrades with honest advice on what will actually make a difference.</p>
+      </article>
+      <article class="card">
+        <h3>Diagnostics</h3>
+        <p>Slow boot, random crashes, or strange noises — we’ll help figure out what’s wrong.</p>
+      </article>
+      <article class="card">
+        <h3>Cleaning &amp; optimization</h3>
+        <p>Thermal paste refresh, dust cleaning, and fan curve tuning to keep temps under control.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 class="section-title">How it works</h2>
+    </div>
+    <div class="card-grid">
+      <article class="card">
+        <h3>1. Quick chat</h3>
+        <p>You tell us what you use your PC for, what you already have, and what your budget is.</p>
+      </article>
+      <article class="card">
+        <h3>2. Clear options</h3>
+        <p>We send you a few part / service options with simple pros &amp; cons, no pressure.</p>
+      </article>
+      <article class="card">
+        <h3>3. Build &amp; handoff</h3>
+        <p>We build, test, and help you set things up so you’re ready on day one.</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
+    <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
+  </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</footer>
+</body>
+</html>

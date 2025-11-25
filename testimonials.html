@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Testimonials – MKL Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-left">
+      <div class="nav-logo">
+        <img src="logo.png" alt="MKL Tech logo">
+      </div>
+      <div>
+        <div class="nav-brand">MKL Tech</div>
+        <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="research.html">Research</a>
+      <a href="testimonials.html" class="active">Testimonials</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrapper">
+  <section class="page-hero">
+    <h1>Testimonials</h1>
+    <p>Real feedback from buyers who trusted MKL Tech with their PCs and tech gear.</p>
+  </section>
+
+  <section class="testimonial-slider">
+    <!-- Slides -->
+    <article class="testimonial testimonial-slide active">
+      <p class="testimonial-quote">
+        “Probably one of the best individuals I ever purchased from, extremely professional, quick and accurate communication and he even cut me a deal on other products. 10 out of 10 will buy from again.”
+      </p>
+      <p class="testimonial-meta">— Damion</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “Exactly as described, smooth transaction, super accommodating &amp; friendly.”
+      </p>
+      <p class="testimonial-meta">— Michael</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “Didn’t end up purchasing from them, but was incredibly helpful and gave me advice on what I should purchase instead.”
+      </p>
+      <p class="testimonial-meta">— Shiv</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “Amazing communication &amp; the item was exactly as described! Would definitely do business with again &amp; recommend anyone to buy from this seller. Very professional.”
+      </p>
+      <p class="testimonial-meta">— Sierra</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “We gladly do business again 10/10.”
+      </p>
+      <p class="testimonial-meta">— Deydy</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “Gave me a great price for some equipment I’ve been needing!”
+      </p>
+      <p class="testimonial-meta">— Drew</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “Responded quick, found time for me almost immediately, and was very nice.”
+      </p>
+      <p class="testimonial-meta">— Adam</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “Friendly, made transaction quick and efficient, fair offer and also extended follow ups if anything was wrong with merchandise. Will do business again with seller.”
+      </p>
+      <p class="testimonial-meta">— Corey</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “Good person to have something sold to you and tells you everything.”
+      </p>
+      <p class="testimonial-meta">— Hdmaj</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “I brought a $1800 high performance PC for my daughter from this seller for the holidays. Honestly, my purchase went exactly as advertised. The seller is very earnest, nice, and straightforward. He even provided me with warranty so I could rest at ease.
+        I don’t usually leave reviews but my daughter absolutely loves her PC and she plays Roblox and Minecraft on it. I looked up the parts and the PC was honestly a steal despite the hefty price tag — seller even included a free keyboard and mouse. Everything went absolutely great, no complaints from my end, only praises. Would definitely go to for every computer.”
+      </p>
+      <p class="testimonial-meta">— Cindy</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “Purchase was exactly as advertised, they reached out multiple times to make sure everything is working! Would absolutely purchase from him again.”
+      </p>
+      <p class="testimonial-meta">— Eric</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “Everything went as planned and smooth. The item I received is as he said and it’s perfect and I love it.”
+      </p>
+      <p class="testimonial-meta">— Yaqub</p>
+    </article>
+
+    <article class="testimonial testimonial-slide">
+      <p class="testimonial-quote">
+        “Great transaction, quick, easy, fair negotiation. Very good communication, made everything seamless. Would transact with again!”
+      </p>
+      <p class="testimonial-meta">— Gavin</p>
+    </article>
+
+    <div class="slider-meta">
+      <span id="testimonial-counter">1 / 13</span>
+    </div>
+    <div class="slider-dots" id="slider-dots"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
+    <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
+  </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Simple auto-rotating testimonial slider (every 30 seconds)
+    const slides = Array.from(document.querySelectorAll('.testimonial-slide'));
+    const dotsContainer = document.getElementById('slider-dots');
+    const counterEl = document.getElementById('testimonial-counter');
+    let current = 0;
+
+    // Create dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+      dot.dataset.index = i;
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = Array.from(document.querySelectorAll('.slider-dot'));
+
+    function showSlide(index) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = index;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+      counterEl.textContent = (current + 1) + ' / ' + slides.length;
+    }
+
+    // Auto-rotate every 30 seconds
+    setInterval(() => {
+      const next = (current + 1) % slides.length;
+      showSlide(next);
+    }, 30000);
+
+    // Allow clicking dots to jump
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.dataset.index, 10);
+        showSlide(idx);
+      });
+    });
+  </script>
+</footer>
+</body>
+</html>

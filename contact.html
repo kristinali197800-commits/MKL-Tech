@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact – MKL Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-left">
+      <div class="nav-logo">
+        <img src="logo.png" alt="MKL Tech logo">
+      </div>
+      <div>
+        <div class="nav-brand">MKL Tech</div>
+        <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="research.html">Research</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrapper">
+  <section class="page-hero">
+    <h1>Contact</h1>
+    <p>Reach out about a new build, an upgrade, or a repair.</p>
+  </section>
+
+  <section class="contact-grid">
+    <article class="contact-card">
+      <h2 style="margin-top:0;">Tell us what you need</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem;">
+        This form doesn’t send anywhere yet — when you host this site, you can hook it up
+        to an email service or a Google Form. For now, you can also contact us directly.
+      </p>
+      <form>
+        <div style="margin-bottom:0.7rem;">
+          <label for="name">Name</label>
+          <input id="name" type="text" placeholder="Your name">
+        </div>
+        <div style="margin-bottom:0.7rem;">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@example.com">
+        </div>
+        <div style="margin-bottom:0.7rem;">
+          <label for="type">What are you looking for?</label>
+          <input id="type" type="text" placeholder="New build, upgrade, or repair">
+        </div>
+        <div style="margin-bottom:0.9rem;">
+          <label for="message">Details</label>
+          <textarea id="message" placeholder="Tell us what you use your PC for, your budget, and any issues."></textarea>
+        </div>
+        <button type="button" class="btn-primary">Send (demo)</button>
+      </form>
+    </article>
+
+    <article class="contact-card">
+      <h2 style="margin-top:0;">Direct contact</h2>
+      <p><strong>Email:</strong> <a href="mailto:example@mkltech.com">example@mkltech.com</a></p>
+      <p><strong>Location:</strong> Cherry Hill, NJ</p>
+      <p><strong>Typical hours:</strong> Evenings &amp; weekends by appointment.</p>
+      <p style="color:var(--text-muted); font-size:0.86rem; margin-top:1rem;">
+        When you message us, include:
+      </p>
+      <ul style="padding-left:1.2rem; font-size:0.86rem; color:var(--text-muted);">
+        <li>What you use your PC for (school, gaming, editing, etc.)</li>
+        <li>Your approximate budget</li>
+        <li>If you already have parts or an existing PC</li>
+      </ul>
+    </article>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
+    <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
+  </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</footer>
+</body>
+</html>

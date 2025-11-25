@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Research & Impact – MKL Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-left">
+      <div class="nav-logo">
+        <img src="logo.png" alt="MKL Tech logo">
+      </div>
+      <div>
+        <div class="nav-brand">MKL Tech</div>
+        <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="research.html" class="active">Research</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrapper">
+  <section class="page-hero">
+    <h1>Research &amp; Impact</h1>
+    <p>How our research in finance and technology shapes the way MKL Tech serves customers.</p>
+  </section>
+
+  <section class="two-col">
+    <article class="text-block">
+      <p>
+        Outside of building PCs, MKL Tech’s founders are deeply involved in research on
+        how everyday people make financial and technology decisions. Current projects
+        include studying how <strong>AI advice changes investing behavior for Millennial investors</strong>
+        and how <strong>scarcity and overconfidence</strong> can push people into taking on unnecessary risk.
+      </p>
+      <p>
+        This research connects directly to MKL Tech: the same patterns that cause people to
+        chase hype stocks can also cause them to overspend on computer parts they don’t actually need.
+        By understanding these behavioral biases, we design our services to protect customers from
+        pressure, upselling, and confusing specs.
+      </p>
+    </article>
+
+    <aside class="text-block">
+      <h2 style="margin-top:0;">What this means for our customers</h2>
+      <ul style="padding-left:1.1rem; font-size:0.9rem; color:var(--text-muted);">
+        <li><strong>Evidence-based recommendations</strong> – we match parts to real workloads, not marketing hype.</li>
+        <li><strong>Clear trade-offs</strong> – we explain what each upgrade actually does so you can decide.</li>
+        <li><strong>Focus on long-term value</strong> – stable performance and reliability over short-term flex.</li>
+        <li><strong>Educational mindset</strong> – every build is a chance to teach practical tech &amp; finance skills.</li>
+      </ul>
+      <p style="margin-top:0.6rem; font-size:0.86rem; color:var(--text-muted);">
+        The goal is simple: combine research-level thinking with hands-on PC building so that
+        students, families, and budget-limited users get <em>honest, data-informed</em> tech decisions.
+      </p>
+    </aside>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
+    <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
+  </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</footer>
+</body>
+</html>

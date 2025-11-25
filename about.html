@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About – MKL Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-left">
+      <div class="nav-logo">
+        <img src="logo.png" alt="MKL Tech logo">
+      </div>
+      <div>
+        <div class="nav-brand">MKL Tech</div>
+        <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="services.html">Services</a>
+      <a href="research.html">Research</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrapper">
+  <section class="page-hero">
+    <h1>About MKL Tech</h1>
+    <p>Started in Cherry Hill, NJ — built for people who just want their computers to work.</p>
+  </section>
+
+  <section class="two-col">
+    <article class="text-block">
+      <p>
+        MKL Tech started because we noticed a clear gap in our community:
+        people were overpaying for computers that didn’t match their needs.
+        Big-box stores pushed unnecessary parts, online guides were confusing,
+        and trustworthy alternatives were hard to find.
+      </p>
+      <p>
+        We began by helping classmates and local families build and repair PCs that fit real workloads
+        and budgets. Over time, that work grew into MKL Tech, a small, focused PC service built on
+        transparent pricing, clear explanations, and reliable performance.
+      </p>
+    </article>
+
+    <aside class="founders">
+      <h2 style="margin-top:0; margin-bottom:0.6rem;">Founders</h2>
+      <div class="founder-item">
+        <span>Michael Li</span>
+        <span class="founder-role">Co-Founder</span>
+      </div>
+      <div class="founder-item">
+        <span>Kristina Li</span>
+        <span class="founder-role">Co-Founder</span>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
+    <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
+  </div>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</footer>
+</body>
+</html>
