@@ -7,17 +7,23 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <header class="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-left">
-      <div class="nav-logo">
-        <img src="logo.png" alt="MKL Tech logo">
-      </div>
+      <div class="nav-logo"></div>
       <div>
         <div class="nav-brand">MKL Tech</div>
         <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
       </div>
     </a>
+
+    <!-- Mobile menu button -->
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+    </button>
+
     <nav class="nav-links">
       <a href="index.html" class="active">Home</a>
       <a href="about.html">About</a>
@@ -106,9 +112,25 @@
     <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
     <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
   </div>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 </footer>
+
+<script>
+  // Set year in footer
+  const yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById("nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+  }
+</script>
+
 </body>
 </html>
