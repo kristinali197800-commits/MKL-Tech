@@ -7,17 +7,23 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <header class="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-left">
-      <div class="nav-logo">
-        <img src="logo.png" alt="MKL Tech logo">
-      </div>
+      <div class="nav-logo"></div>
       <div>
         <div class="nav-brand">MKL Tech</div>
         <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
       </div>
     </a>
+
+    <!-- Mobile menu button -->
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+    </button>
+
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -41,24 +47,30 @@
       <p style="color:var(--text-muted); font-size:0.9rem;">
         You can also contact us directly.
       </p>
-      <form>
+
+      <!-- Replace YOUR_FORMSPREE_URL once you create it -->
+      <form action="YOUR_FORMSPREE_URL" method="POST">
         <div style="margin-bottom:0.7rem;">
           <label for="name">Name</label>
-          <input id="name" type="text" placeholder="Your name">
+          <input id="name" name="name" type="text" placeholder="Your name" required>
         </div>
+
         <div style="margin-bottom:0.7rem;">
           <label for="email">Email</label>
-          <input id="email" type="email" placeholder="you@example.com">
+          <input id="email" name="email" type="email" placeholder="you@example.com" required>
         </div>
+
         <div style="margin-bottom:0.7rem;">
           <label for="type">What are you looking for?</label>
-          <input id="type" type="text" placeholder="New build, upgrade, or repair">
+          <input id="type" name="service" type="text" placeholder="New build, upgrade, or repair">
         </div>
+
         <div style="margin-bottom:0.9rem;">
           <label for="message">Details</label>
-          <textarea id="message" placeholder="Tell us what you use your PC for, your budget, and any issues."></textarea>
+          <textarea id="message" name="message" placeholder="Tell us what you use your PC for, your budget, and any issues." required></textarea>
         </div>
-        <button type="button" class="btn-primary">Send </button>
+
+        <button type="submit" class="btn-primary">Send</button>
       </form>
     </article>
 
@@ -67,6 +79,7 @@
       <p><strong>Email:</strong> <a href="mailto:mkl.tech.pc@gmail.com">mkl.tech.pc@gmail.com</a></p>
       <p><strong>Location:</strong> Cherry Hill, NJ</p>
       <p><strong>Typical hours:</strong> Evenings &amp; weekends by appointment.</p>
+
       <p style="color:var(--text-muted); font-size:0.86rem; margin-top:1rem;">
         When you message us, include:
       </p>
@@ -84,9 +97,25 @@
     <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
     <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
   </div>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 </footer>
+
+<script>
+  // Set year in footer
+  const yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById("nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+  }
+</script>
+
 </body>
 </html>
