@@ -564,6 +564,7 @@ textarea:focus {
     display: flex;
   }
 }
+
 /* --- Entrance animations --- */
 
 .reveal {
@@ -592,4 +593,3 @@ textarea:focus {
 .reveal.delay-4 {
   transition-delay: 0.4s;
 }
-
