@@ -36,19 +36,20 @@
 </header>
 
 <main class="wrapper">
-  <section class="page-hero">
+  <section class="page-hero reveal delay-1">
     <h1>Contact</h1>
     <p>Reach out about a new build, an upgrade, or a repair.</p>
   </section>
 
   <section class="contact-grid">
-    <article class="contact-card">
+    <!-- Form side -->
+    <article class="contact-card reveal delay-2">
       <h2 style="margin-top:0;">Tell us what you need</h2>
       <p style="color:var(--text-muted); font-size:0.9rem;">
-        You can also contact us directly.
+        Fill out this form and it will send directly to our inbox.
       </p>
 
-      <!-- Working Formspree form -->
+      <!-- Connected to your Formspree endpoint -->
       <form action="https://formspree.io/f/mjkdzejd" method="POST">
         <div style="margin-bottom:0.7rem;">
           <label for="name">Name</label>
@@ -74,19 +75,21 @@
       </form>
     </article>
 
-    <article class="contact-card">
+    <!-- Info side -->
+    <article class="contact-card reveal delay-3">
       <h2 style="margin-top:0;">Direct contact</h2>
       <p><strong>Email:</strong> <a href="mailto:mkl.tech.pc@gmail.com">mkl.tech.pc@gmail.com</a></p>
       <p><strong>Location:</strong> Cherry Hill, NJ</p>
       <p><strong>Typical hours:</strong> Evenings &amp; weekends by appointment.</p>
 
       <p style="color:var(--text-muted); font-size:0.86rem; margin-top:1rem;">
-        When you message us, include:
+        When you message us, it helps if you include:
       </p>
       <ul style="padding-left:1.2rem; font-size:0.86rem; color:var(--text-muted);">
         <li>What you use your PC for (school, gaming, editing, etc.)</li>
         <li>Your approximate budget</li>
         <li>If you already have parts or an existing PC</li>
+        <li>Your ideal timing (when you need it ready)</li>
       </ul>
     </article>
   </section>
@@ -115,6 +118,16 @@
       navLinks.classList.toggle("open");
     });
   }
+
+  // Entrance animations
+  window.addEventListener("load", () => {
+    const reveals = document.querySelectorAll(".reveal");
+    reveals.forEach((el) => {
+      requestAnimationFrame(() => {
+        el.classList.add("show");
+      });
+    });
+  });
 </script>
 
 </body>
