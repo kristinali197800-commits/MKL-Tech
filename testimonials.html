@@ -36,6 +36,26 @@
       border-color: var(--accent);
       color: var(--accent);
     }
+
+    /* Slide animation like portfolio */
+    .testimonial-slide {
+      display: none;
+      animation: fadeSlide 0.8s ease;
+    }
+    .testimonial-slide.active {
+      display: block;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateX(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
   </style>
 </head>
 
@@ -52,7 +72,6 @@
         <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
       </div>
     </a>
-
 
     <!-- Mobile menu button -->
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
@@ -73,13 +92,13 @@
 </header>
 
 <main class="wrapper">
-  <!-- Add reveal to hero -->
+  <!-- Hero with entrance animation -->
   <section class="page-hero reveal delay-1">
     <h1>Testimonials</h1>
     <p>Real feedback from buyers who trusted MKL Tech with their PCs and gear.</p>
   </section>
 
-  <!-- Add reveal to slider -->
+  <!-- Slider with entrance animation -->
   <section class="testimonial-slider reveal delay-2">
     <!-- Slides -->
     <article class="testimonial testimonial-slide active">
@@ -169,13 +188,7 @@
       <p class="testimonial-meta">— Gavin</p>
     </article>
 
-    <!-- Counter + Dots -->
-    <div class="slider-meta">
-      <span id="testimonial-counter">1 / 13</span>
-    </div>
-    <div class="slider-dots" id="slider-dots"></div>
-
-    <!-- Arrows -->
+    <!-- Arrows only (no dots, no counter) -->
     <div class="slider-arrows">
       <button class="arrow-btn" id="prev-btn">← Prev</button>
       <button class="arrow-btn" id="next-btn">Next →</button>
@@ -204,57 +217,37 @@
     });
   }
 
-  // Testimonials slider
+  // Testimonials slider (no dots, no counter, 5s auto slide)
   const slides = Array.from(document.querySelectorAll('.testimonial-slide'));
-  const dotsContainer = document.getElementById('slider-dots');
-  const counterEl = document.getElementById('testimonial-counter');
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
   let current = 0;
 
-  // Create dots
-  slides.forEach((_, i) => {
-    const dot = document.createElement('span');
-    dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
-    dot.dataset.index = i;
-    dotsContainer.appendChild(dot);
-  });
-
-  const dots = Array.from(document.querySelectorAll('.slider-dot'));
-
   function showSlide(index) {
     slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
-
-    current = index;
-
+    current = (index + slides.length) % slides.length;
     slides[current].classList.add('active');
-    dots[current].classList.add('active');
-    counterEl.textContent = `${current + 1} / ${slides.length}`;
   }
 
-  // Auto-rotate every 30s
-  setInterval(() => {
-    showSlide((current + 1) % slides.length);
-  }, 30000);
+  // Auto-rotate every 5 seconds
+  let autoTimer = setInterval(() => {
+    showSlide(current + 1);
+  }, 5000);
 
-  // Dot click jump
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      showSlide(Number(dot.dataset.index));
-    });
-  });
-
-  // Arrow buttons
+  // Arrow buttons (also reset timer so it feels responsive)
   prevBtn.addEventListener('click', () => {
-    showSlide((current - 1 + slides.length) % slides.length);
+    showSlide(current - 1);
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => showSlide(current + 1), 5000);
   });
 
   nextBtn.addEventListener('click', () => {
-    showSlide((current + 1) % slides.length);
+    showSlide(current + 1);
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => showSlide(current + 1), 5000);
   });
 
-  // Entrance animations
+  // Entrance animations (re-use your reveal system)
   window.addEventListener("load", () => {
     const reveals = document.querySelectorAll(".reveal");
     reveals.forEach((el) => {
