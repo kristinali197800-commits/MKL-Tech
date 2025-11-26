@@ -36,12 +36,12 @@
 </header>
 
 <main class="wrapper">
-  <section class="page-hero">
+  <section class="page-hero reveal delay-1">
     <h1>Services</h1>
     <p>Clear, affordable help for your current PC or your next build.</p>
   </section>
 
-  <section class="section">
+  <section class="section reveal delay-2">
     <div class="section-head">
       <h2 class="section-title">Custom PCs</h2>
       <p class="section-muted">We walk you through every part choice and keep you on budget.</p>
@@ -62,7 +62,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section reveal delay-3">
     <div class="section-head">
       <h2 class="section-title">Upgrades &amp; Repairs</h2>
       <p class="section-muted">Breathe new life into the PC you already own.</p>
@@ -83,7 +83,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section reveal delay-4">
     <div class="section-head">
       <h2 class="section-title">How it works</h2>
     </div>
@@ -127,6 +127,16 @@
       navLinks.classList.toggle("open");
     });
   }
+
+  // Entrance animations
+  window.addEventListener("load", () => {
+    const reveals = document.querySelectorAll(".reveal");
+    reveals.forEach((el) => {
+      requestAnimationFrame(() => {
+        el.classList.add("show");
+      });
+    });
+  });
 </script>
 
 </body>
