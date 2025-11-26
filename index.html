@@ -37,7 +37,8 @@
 
 <main class="wrapper">
   <section class="hero">
-    <div>
+    <!-- Hero left column with animation -->
+    <div class="reveal delay-1">
       <div class="hero-badge">
         <span class="hero-dot"></span>
         <span>Custom PCs • Upgrades • Repairs • Tech parts</span>
@@ -59,7 +60,8 @@
       </p>
     </div>
 
-    <div>
+    <!-- Hero right column with animation -->
+    <div class="reveal delay-2">
       <section class="section">
         <div class="section-head">
           <h2 class="section-title">What MKL Tech does</h2>
@@ -85,7 +87,8 @@
     </div>
   </section>
 
-  <section class="section">
+  <!-- Who MKL Tech is for section with animation -->
+  <section class="section reveal delay-3">
     <div class="section-head">
       <h2 class="section-title">Who MKL Tech is for</h2>
       <p class="section-muted">If you care more about stability and value than flashy RGB, you’re in the right place.</p>
@@ -130,6 +133,17 @@
       navLinks.classList.toggle("open");
     });
   }
+
+  // Entrance animations
+  window.addEventListener("load", () => {
+    const reveals = document.querySelectorAll(".reveal");
+    reveals.forEach((el) => {
+      // use next frame so transitions apply smoothly
+      requestAnimationFrame(() => {
+        el.classList.add("show");
+      });
+    });
+  });
 </script>
 
 </body>
