@@ -68,16 +68,24 @@ img {
 }
 
 .nav-logo {
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
+  width: 42px;                 /* slightly larger and cleaner */
+  height: 42px;
+  border-radius: 10px;         /* remove circle, more modern */
   overflow: hidden;
   border: 1px solid rgba(148, 163, 184, 0.4);
-  background: radial-gradient(circle at top, #0ea5e9, #020617 55%);
+  background: #020617;         /* simple dark background */
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+.nav-logo img {
+  width: 180%;                 /* zoom in — adjust 150–250% */
+  height: 180%;
+  object-fit: cover;           /* fills the area */
+  transform: translate(0, 0);  /* adjust if you want to shift */
+}
+
 
 .nav-logo img {
   width: 130%;
