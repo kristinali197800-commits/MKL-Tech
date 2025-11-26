@@ -5,19 +5,48 @@
   <title>Testimonials – MKL Tech</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Arrows for slider */
+    .slider-arrows {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .arrow-btn {
+      background: #0b1220;
+      border: 1px solid rgba(148,163,184,0.4);
+      padding: 0.4rem 0.7rem;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      transition: 0.2s ease;
+    }
+    .arrow-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  </style>
 </head>
 <body>
+
 <header class="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-left">
-      <div class="nav-logo">
-        <img src="logo.png" alt="MKL Tech logo">
-      </div>
+      <div class="nav-logo"></div>
       <div>
         <div class="nav-brand">MKL Tech</div>
         <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
       </div>
     </a>
+
+    <!-- Mobile menu button -->
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+    </button>
+
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -32,14 +61,14 @@
 <main class="wrapper">
   <section class="page-hero">
     <h1>Testimonials</h1>
-    <p>Real feedback from buyers who trusted MKL Tech with their PCs and tech gear.</p>
+    <p>Real feedback from buyers who trusted MKL Tech with their PCs and gear.</p>
   </section>
 
   <section class="testimonial-slider">
     <!-- Slides -->
     <article class="testimonial testimonial-slide active">
       <p class="testimonial-quote">
-        “Probably one of the best individuals I ever purchased from, extremely professional, quick and accurate communication and he even cut me a deal on other products. 10 out of 10 will buy from again.”
+        “Probably one of the best individuals I ever purchased from, extremely professional, quick and accurate communication and he even cut me a deal on other products. 10/10 will buy again.”
       </p>
       <p class="testimonial-meta">— Damion</p>
     </article>
@@ -53,86 +82,88 @@
 
     <article class="testimonial testimonial-slide">
       <p class="testimonial-quote">
-        “Didn’t end up purchasing from them, but was incredibly helpful and gave me advice on what I should purchase instead.”
+        “Didn’t end up purchasing but they were incredibly helpful and gave me advice on what to buy instead.”
       </p>
       <p class="testimonial-meta">— Shiv</p>
     </article>
 
     <article class="testimonial testimonial-slide">
       <p class="testimonial-quote">
-        “Amazing communication &amp; the item was exactly as described! Would definitely do business with again &amp; recommend anyone to buy from this seller. Very professional.”
+        “Amazing communication & the item was exactly as described! Would definitely do business again.”
       </p>
       <p class="testimonial-meta">— Sierra</p>
     </article>
 
     <article class="testimonial testimonial-slide">
-      <p class="testimonial-quote">
-        “We gladly do business again 10/10.”
-      </p>
+      <p class="testimonial-quote">“We gladly do business again. 10/10.”</p>
       <p class="testimonial-meta">— Deydy</p>
     </article>
 
     <article class="testimonial testimonial-slide">
       <p class="testimonial-quote">
-        “Gave me a great price for some equipment I’ve been needing!”
+        “Gave me a great price for equipment I’ve been needing!”
       </p>
       <p class="testimonial-meta">— Drew</p>
     </article>
 
     <article class="testimonial testimonial-slide">
       <p class="testimonial-quote">
-        “Responded quick, found time for me almost immediately, and was very nice.”
+        “Responded quick, found time for me immediately, and was super nice.”
       </p>
       <p class="testimonial-meta">— Adam</p>
     </article>
 
     <article class="testimonial testimonial-slide">
       <p class="testimonial-quote">
-        “Friendly, made transaction quick and efficient, fair offer and also extended follow ups if anything was wrong with merchandise. Will do business again with seller.”
+        “Friendly, fast, fair negotiation. Even followed up afterward. Great seller!”
       </p>
       <p class="testimonial-meta">— Corey</p>
     </article>
 
     <article class="testimonial testimonial-slide">
-      <p class="testimonial-quote">
-        “Good person to have something sold to you and tells you everything.”
-      </p>
+      <p class="testimonial-quote">“Good seller, explained everything clearly.”</p>
       <p class="testimonial-meta">— Hdmaj</p>
     </article>
 
     <article class="testimonial testimonial-slide">
       <p class="testimonial-quote">
-        “I brought a $1800 high performance PC for my daughter from this seller for the holidays. Honestly, my purchase went exactly as advertised. The seller is very earnest, nice, and straightforward. He even provided me with warranty so I could rest at ease.
-        I don’t usually leave reviews but my daughter absolutely loves her PC and she plays Roblox and Minecraft on it. I looked up the parts and the PC was honestly a steal despite the hefty price tag — seller even included a free keyboard and mouse. Everything went absolutely great, no complaints from my end, only praises. Would definitely go to for every computer.”
+        “Bought a $1800 PC for my daughter. Everything was exactly as advertised. Honest seller, great warranty, amazing value.”
       </p>
       <p class="testimonial-meta">— Cindy</p>
     </article>
 
     <article class="testimonial testimonial-slide">
       <p class="testimonial-quote">
-        “Purchase was exactly as advertised, they reached out multiple times to make sure everything is working! Would absolutely purchase from him again.”
+        “Purchase was perfect, they followed up multiple times. Would buy again.”
       </p>
       <p class="testimonial-meta">— Eric</p>
     </article>
 
     <article class="testimonial testimonial-slide">
       <p class="testimonial-quote">
-        “Everything went as planned and smooth. The item I received is as he said and it’s perfect and I love it.”
+        “Everything was smooth, item was perfect and I love it.”
       </p>
       <p class="testimonial-meta">— Yaqub</p>
     </article>
 
     <article class="testimonial testimonial-slide">
       <p class="testimonial-quote">
-        “Great transaction, quick, easy, fair negotiation. Very good communication, made everything seamless. Would transact with again!”
+        “Quick, easy, fair negotiation. Seamless experience.”
       </p>
       <p class="testimonial-meta">— Gavin</p>
     </article>
 
+    <!-- Counter + Dots -->
     <div class="slider-meta">
       <span id="testimonial-counter">1 / 13</span>
     </div>
     <div class="slider-dots" id="slider-dots"></div>
+
+    <!-- Arrows -->
+    <div class="slider-arrows">
+      <button class="arrow-btn" id="prev-btn">← Prev</button>
+      <button class="arrow-btn" id="next-btn">Next →</button>
+    </div>
   </section>
 </main>
 
@@ -141,48 +172,72 @@
     <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
     <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
   </div>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Simple auto-rotating testimonial slider (every 30 seconds)
-    const slides = Array.from(document.querySelectorAll('.testimonial-slide'));
-    const dotsContainer = document.getElementById('slider-dots');
-    const counterEl = document.getElementById('testimonial-counter');
-    let current = 0;
-
-    // Create dots
-    slides.forEach((_, i) => {
-      const dot = document.createElement('span');
-      dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
-      dot.dataset.index = i;
-      dotsContainer.appendChild(dot);
-    });
-
-    const dots = Array.from(document.querySelectorAll('.slider-dot'));
-
-    function showSlide(index) {
-      slides[current].classList.remove('active');
-      dots[current].classList.remove('active');
-      current = index;
-      slides[current].classList.add('active');
-      dots[current].classList.add('active');
-      counterEl.textContent = (current + 1) + ' / ' + slides.length;
-    }
-
-    // Auto-rotate every 30 seconds
-    setInterval(() => {
-      const next = (current + 1) % slides.length;
-      showSlide(next);
-    }, 30000);
-
-    // Allow clicking dots to jump
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        const idx = parseInt(dot.dataset.index, 10);
-        showSlide(idx);
-      });
-    });
-  </script>
 </footer>
+
+<script>
+  // Set year
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Mobile nav
+  const navToggle = document.getElementById("nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+  }
+
+  // Testimonials slider
+  const slides = Array.from(document.querySelectorAll('.testimonial-slide'));
+  const dotsContainer = document.getElementById('slider-dots');
+  const counterEl = document.getElementById('testimonial-counter');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  let current = 0;
+
+  // Create dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'slider-dot' + (i === 0 ? ' active' : '');
+    dot.dataset.index = i;
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = Array.from(document.querySelectorAll('.slider-dot'));
+
+  function showSlide(index) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+
+    current = index;
+
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    counterEl.textContent = `${current + 1} / ${slides.length}`;
+  }
+
+  // Auto-rotate every 30s
+  setInterval(() => {
+    showSlide((current + 1) % slides.length);
+  }, 30000);
+
+  // Dot click jump
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      showSlide(Number(dot.dataset.index));
+    });
+  });
+
+  // Arrow buttons
+  prevBtn.addEventListener('click', () => {
+    showSlide((current - 1 + slides.length) % slides.length);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    showSlide((current + 1) % slides.length);
+  });
+</script>
+
 </body>
 </html>
