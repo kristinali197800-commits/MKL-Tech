@@ -59,12 +59,14 @@
 </header>
 
 <main class="wrapper">
-  <section class="page-hero">
+  <!-- Add reveal to hero -->
+  <section class="page-hero reveal delay-1">
     <h1>Testimonials</h1>
     <p>Real feedback from buyers who trusted MKL Tech with their PCs and gear.</p>
   </section>
 
-  <section class="testimonial-slider">
+  <!-- Add reveal to slider -->
+  <section class="testimonial-slider reveal delay-2">
     <!-- Slides -->
     <article class="testimonial testimonial-slide active">
       <p class="testimonial-quote">
@@ -89,7 +91,7 @@
 
     <article class="testimonial testimonial-slide">
       <p class="testimonial-quote">
-        “Amazing communication & the item was exactly as described! Would definitely do business again.”
+        “Amazing communication &amp; the item was exactly as described! Would definitely do business again.”
       </p>
       <p class="testimonial-meta">— Sierra</p>
     </article>
@@ -217,7 +219,7 @@
     counterEl.textContent = `${current + 1} / ${slides.length}`;
   }
 
-  // Auto-rotate every 5s
+  // Auto-rotate every 30s
   setInterval(() => {
     showSlide((current + 1) % slides.length);
   }, 30000);
@@ -236,6 +238,16 @@
 
   nextBtn.addEventListener('click', () => {
     showSlide((current + 1) % slides.length);
+  });
+
+  // Entrance animations
+  window.addEventListener("load", () => {
+    const reveals = document.querySelectorAll(".reveal");
+    reveals.forEach((el) => {
+      requestAnimationFrame(() => {
+        el.classList.add("show");
+      });
+    });
   });
 </script>
 
