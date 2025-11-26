@@ -1,1 +1,192 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio – MKL Tech</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" href="favicon.ico">
+  <meta name="theme-color" content="#020816">
+
+  <style>
+    .portfolio-wrapper {
+      max-width: 900px;
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    .portfolio-slide {
+      display: none;
+      animation: fadeSlide 0.8s ease;
+    }
+
+    .portfolio-slide.active {
+      display: block;
+    }
+
+    .portfolio-img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.45);
+    }
+
+    .portfolio-text {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .portfolio-title {
+      font-size: 1.3rem;
+      margin-top: 1rem;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateX(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Arrows */
+    .portfolio-arrows {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .arrow-btn {
+      background: #0b1220;
+      border: 1px solid rgba(148,163,184,0.4);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      transition: 0.2s ease;
+    }
+
+    .arrow-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-left">
+      <div class="nav-logo">
+        <img src="mkl-centered-uniform.png" alt="MKL Tech logo">
+      </div>
+      <div>
+        <div class="nav-brand">MKL Tech</div>
+        <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="research.html">Research</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrapper">
+  <section class="page-hero">
+    <h1>Portfolio</h1>
+    <p>Recent PC builds we’ve delivered for students, gamers, families, and creators.</p>
+  </section>
+
+  <div class="portfolio-wrapper">
+
+    <!-- SLIDE 1 -->
+    <div class="portfolio-slide active">
+      <img src="build1.jpg" class="portfolio-img" alt="PC Build 1">
+      <h2 class="portfolio-title">Budget Gaming PC – Ryzen 3600 + GTX 1660S</h2>
+      <p class="portfolio-text">A clean and reliable starter gaming build for esports and school work.</p>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="portfolio-slide">
+      <img src="build2.jpg" class="portfolio-img" alt="PC Build 2">
+      <h2 class="portfolio-title">Creator PC – i5 + RTX 3060</h2>
+      <p class="portfolio-text">Made for editing, design, and smooth multitasking.</p>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="portfolio-slide">
+      <img src="build3.jpg" class="portfolio-img" alt="PC Build 3">
+      <h2 class="portfolio-title">School & Home PC – Quiet and Efficient</h2>
+      <p class="portfolio-text">Perfect for Zoom, homework, and everyday family use.</p>
+    </div>
+
+    <div class="portfolio-arrows">
+      <button id="prev" class="arrow-btn">← Prev</button>
+      <button id="next" class="arrow-btn">Next →</button>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
+    <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Mobile menu
+  const navToggle = document.getElementById("nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
+  navToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+  });
+
+  // Portfolio slider
+  let slides = document.querySelectorAll(".portfolio-slide");
+  let index = 0;
+
+  function showSlide(i) {
+    slides[index].classList.remove("active");
+    index = (i + slides.length) % slides.length;
+    slides[index].classList.add("active");
+  }
+
+  document.getElementById("prev").onclick = () => showSlide(index - 1);
+  document.getElementById("next").onclick = () => showSlide(index + 1);
+
+  // Auto slide every 5 seconds
+  setInterval(() => showSlide(index + 1), 5000);
+</script>
+
+</body>
+</html>
