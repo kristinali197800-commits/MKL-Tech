@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <header class="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-left">
@@ -35,13 +36,13 @@
 </header>
 
 <main class="wrapper">
-  <section class="page-hero">
+  <section class="page-hero reveal delay-1">
     <h1>About MKL Tech</h1>
     <p>Started in Cherry Hill, NJ — built for people who just want their computers to work.</p>
   </section>
 
   <section class="two-col">
-    <article class="text-block">
+    <article class="text-block reveal delay-2">
       <p>
         MKL Tech started because we noticed a clear gap in our community:
         people were overpaying for computers that didn’t match their needs.
@@ -53,9 +54,13 @@
         and budgets. Over time, that work grew into MKL Tech, a small, focused PC service built on
         transparent pricing, clear explanations, and reliable performance.
       </p>
+      <p>
+        Today, MKL Tech focuses on students, families, and budget-limited users who need reliable
+        computers without getting lost in technical jargon or pressured into overspending.
+      </p>
     </article>
 
-    <aside class="founders">
+    <aside class="founders reveal delay-3">
       <h2 style="margin-top:0; margin-bottom:0.6rem;">Founders</h2>
       <div class="founder-item">
         <span>Michael Li</span>
@@ -65,6 +70,10 @@
         <span>Kristina Li</span>
         <span class="founder-role">Co-Founder</span>
       </div>
+      <p style="margin-top:0.8rem; font-size:0.85rem; color:var(--text-muted);">
+        Every build and repair is handled directly by the founders — from part selection to final testing —
+        so customers always know who’s behind the work.
+      </p>
     </aside>
   </section>
 </main>
@@ -92,6 +101,17 @@
       navLinks.classList.toggle("open");
     });
   }
+
+  // Entrance animations
+  window.addEventListener("load", () => {
+    const reveals = document.querySelectorAll(".reveal");
+    reveals.forEach((el) => {
+      requestAnimationFrame(() => {
+        el.classList.add("show");
+      });
+    });
+  });
 </script>
+
 </body>
 </html>
