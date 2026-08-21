@@ -1,4 +1,4 @@
-import re,csv,io,json,pathlib,requests,unicodedata,traceback
+import re,csv,io,json,pathlib,requests,unicodedata,traceback,urllib.parse
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
 OUT=pathlib.Path('osg_japan_candidates'); OUT.mkdir(exist_ok=True)
@@ -30,7 +30,6 @@ def add(key,fn):
 
 def trauma():
     url='https://jast-hp.org/specialist/member-list/'; s=BeautifulSoup(get(url).text,'lxml'); rs=[]
-    # names are rendered as short text elements; collect exact Japanese personal-name strings
     for tag in s.find_all(['li','td','p','span','div']):
         t=norm(tag.get_text(' ',strip=True))
         if good_name(t): rs.append(row(t,'Emergency General/Trauma/Acute Care Surgeon','Trauma Surgery / 外傷専門医','JAST Trauma Specialist',url,'Japan Association for the Surgery of Trauma official specialist roster',snap='2026-04-01'))
@@ -65,19 +64,24 @@ def general():
 add('GeneralGI',general)
 
 def critical():
-    best=[]
-    for url in ['https://www.jsicm.org/specialist/index.html','https://www.jsicm.org/specialist/']:
+    rs=[]
+    # JSICM serves actual specialist rows on kana-filtered URLs. Pull several broad kana groups.
+    for key in ['ア','エ','オ','カ','キ','ク','ケ','コ','サ','シ','ス','セ','ソ','タ','チ','ツ','テ','ト','ナ','ニ','ヌ','ネ','ノ','ハ','ヒ','フ','ヘ','ホ','マ','ミ','ム','メ','モ','ヤ','ユ','ヨ','ラ','リ','ル','レ','ロ','ワ']:
+        url='https://www.jsicm.org/specialist/index.html?kname_key='+urllib.parse.quote(key)
         try:
-            s=BeautifulSoup(get(url).text,'lxml'); tmp=[]
+            s=BeautifulSoup(get(url).text,'lxml')
+            # the returned table is name | prefecture; also accept short exact-name cells
             for tr in s.find_all('tr'):
                 cells=[norm(x.get_text(' ',strip=True)) for x in tr.find_all(['td','th'])]
+                if not cells: continue
                 for c in cells:
                     if good_name(c):
                         region=next((x for x in cells if re.match(r'^(北海道|東京都|京都府|大阪府|.{2,3}県)$',x)), '')
-                        tmp.append(row(c,'Critical Care Physician/Intensivist','Intensive Care / 集中治療科専門医','JSICM Intensive Care Specialist',url,'Japanese Society of Intensive Care Medicine official specialist list',region=region,snap='2026-04-01')); break
-            if len(uniq(tmp))>len(best): best=uniq(tmp)
-        except Exception: pass
-    return best
+                        rs.append(row(c,'Critical Care Physician/Intensivist','Intensive Care / 集中治療科専門医','JSICM Intensive Care Specialist',url,'Japanese Society of Intensive Care Medicine official specialist list',region=region,snap='2026-04-01')); break
+            if len(uniq(rs))>=800: break
+        except Exception:
+            continue
+    return rs
 add('CriticalCare',critical)
 
 def pharmacists():
