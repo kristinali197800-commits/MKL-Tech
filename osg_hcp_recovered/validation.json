@@ -1,0 +1,72 @@
+{
+  "osg_us_4400.csv": {
+    "rows": 4400,
+    "counts": {
+      "Anesthesiologist": 400,
+      "Neurosurgeon": 500,
+      "Cardiothoracic Surgeon": 500,
+      "General/GI Surgeon": 500,
+      "Ortho Surgeon": 500,
+      "ER Physician": 500,
+      "Critical Care Physician/Intensivist": 500,
+      "Emergency General/Trauma/Acute Care Surgeon": 500,
+      "Clinical/Bedside Pharmacists": 500
+    },
+    "headers": [
+      "Country",
+      "OSG Target Category",
+      "Local / Source Specialty",
+      "Clinician",
+      "Credential",
+      "Institution / Facility",
+      "City",
+      "State / Region",
+      "ZIP",
+      "Professional Email",
+      "Phone",
+      "NPI / Certification ID",
+      "License",
+      "Source URL",
+      "Source Name",
+      "Source Snapshot",
+      "Verification Tier",
+      "Verification Status",
+      "Notes"
+    ]
+  },
+  "osg_germany_3000.csv": {
+    "rows": 3000,
+    "counts": {
+      "Anesthesiologist": 400,
+      "Emergency General/Trauma/Acute Care Surgeon": 300,
+      "Neurosurgeon": 300,
+      "Cardiothoracic Surgeon": 300,
+      "General/GI Surgeon": 300,
+      "Ortho Surgeon": 300,
+      "ER Physician": 400,
+      "Critical Care Physician/Intensivist": 400,
+      "Clinical/Bedside Pharmacists": 300
+    },
+    "headers": [
+      "Country",
+      "OSG Target Category",
+      "Local / Source Specialty",
+      "Clinician",
+      "Credential",
+      "Institution / Facility",
+      "City",
+      "State / Region",
+      "ZIP",
+      "Professional Email",
+      "Phone",
+      "NPI / Certification ID",
+      "License",
+      "Source URL",
+      "Source Name",
+      "Source Snapshot",
+      "Verification Tier",
+      "Verification Status",
+      "Notes"
+    ]
+  }
+}
