@@ -1,0 +1,136 @@
+name: OSG Japan Candidate Build
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/osg-japan-candidates.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install requests beautifulsoup4 lxml pypdf
+      - name: Build Japan official-source candidate files
+        shell: bash
+        run: |
+          python - <<'PY'
+          import re,csv,io,json,pathlib,requests,unicodedata
+          from bs4 import BeautifulSoup
+          from pypdf import PdfReader
+          OUT=pathlib.Path('osg_japan_candidates'); OUT.mkdir(exist_ok=True)
+          H={'User-Agent':'Mozilla/5.0 (compatible; OSG-HCP-Research/1.0)'}
+          def get(url):
+            r=requests.get(url,headers=H,timeout=40); r.raise_for_status(); return r
+          def norm(s): return re.sub(r'\s+',' ',unicodedata.normalize('NFKC',s or '')).strip()
+          jpname=re.compile(r'^[一-龯々〆ヵヶぁ-んァ-ヶー]{1,10}[ 　]+[一-龯々〆ヵヶぁ-んァ-ヶー]{1,14}[〇○]?$')
+          def good_name(s):
+            s=norm(s).rstrip('〇○')
+            if not jpname.match(s): return False
+            bad=('専門医','病院','大学','学会','一覧','都道府県','診療','検索','医師','会員','認定','外科','薬剤')
+            return not any(x in s for x in bad)
+          def uniq(rows):
+            seen=set(); out=[]
+            for r in rows:
+              n=norm(r['Clinician']).rstrip('〇○')
+              key=re.sub(r'[\s　]','',n)
+              if n and key not in seen:
+                seen.add(key); r['Clinician']=n; out.append(r)
+            return out
+          cols=['Country','Region / State / Prefecture','City','ZIP','Clinician','Credential','OSG Target Category','Local / Source Specialty','Institution','Address','Phone','Professional Email','NPI / Registry ID','License','License State','Source URL','Source Type','Snapshot','Verification']
+          def row(name,cat,local,cred,url,source,region='',inst='',rid='',snap='2026-08-20'):
+            return {'Country':'Japan','Region / State / Prefecture':region,'City':'','ZIP':'','Clinician':norm(name).rstrip('〇○'),'Credential':cred,'OSG Target Category':cat,'Local / Source Specialty':local,'Institution':norm(inst),'Address':'','Phone':'','Professional Email':'','NPI / Registry ID':rid,'License':'','License State':'','Source URL':url,'Source Type':source,'Snapshot':snap,'Verification':'Official public professional-body/certification roster; contact fields left blank when not published'}
+          allrows=[]; report={}
+
+          # Trauma specialists — Japan Association for the Surgery of Trauma
+          url='https://jast-hp.org/specialist/member-list/'
+          s=BeautifulSoup(get(url).text,'lxml'); candidates=[]
+          for tag in s.find_all(['li','td','p','span','div']):
+            t=norm(tag.get_text(' ',strip=True))
+            if good_name(t): candidates.append(row(t,'Emergency General/Trauma/Acute Care Surgeon','Trauma Surgery / 外傷専門医','JAST Trauma Specialist',url,'Japan Association for the Surgery of Trauma official specialist roster',snap='2026-04-01'))
+          candidates=uniq(candidates); report['Trauma']=len(candidates); allrows+=candidates
+
+          # Neurosurgery — Japan Neurosurgical Society
+          url='https://www.jnss.or.jp/jns_web/senmoni_all.do'
+          s=BeautifulSoup(get(url).text,'lxml'); candidates=[]
+          for tag in s.find_all(['td','li']):
+            t=norm(tag.get_text(' ',strip=True))
+            if good_name(t): candidates.append(row(t,'Neurosurgeon','Neurosurgery / 脳神経外科専門医','JNSS Board-Certified Neurosurgeon',url,'Japan Neurosurgical Society official specialist directory',snap='2026-08-20'))
+          candidates=uniq(candidates); report['Neurosurgeon']=len(candidates); allrows+=candidates
+
+          # Cardiovascular / cardiothoracic surgery — JCVS
+          url='https://jcvs.jp/list/list-1/'
+          s=BeautifulSoup(get(url).text,'lxml'); candidates=[]
+          for tr in s.find_all('tr'):
+            cells=[norm(x.get_text(' ',strip=True)) for x in tr.find_all(['td','th'])]
+            if len(cells)<2: continue
+            name=''; inst=''; region=''
+            for i,c in enumerate(cells):
+              if good_name(c):
+                name=c; region=cells[0] if i>0 and len(cells[0])<12 else ''; inst=cells[i+1] if i+1<len(cells) else ''; break
+            if name: candidates.append(row(name,'Cardiothoracic Surgeon','Cardiovascular Surgery / 心臓血管外科専門医','JCVS Cardiovascular Surgery Specialist',url,'Japanese Board of Cardiovascular Surgery official specialist list',region=region,inst=inst,snap='2026-02-01'))
+          candidates=uniq(candidates); report['Cardiothoracic']=len(candidates); allrows+=candidates
+
+          # General/GI surgery — Japan Surgical Society, Hokkaido results (984+ official specialists)
+          url='https://list.jssoc.or.jp/find-doctor/?col18=%E5%8C%97%E6%B5%B7%E9%81%93'
+          s=BeautifulSoup(get(url).text,'lxml'); candidates=[]
+          for tag in s.find_all(['td','li','p','span','div','a']):
+            t=norm(tag.get_text(' ',strip=True))
+            if good_name(t): candidates.append(row(t,'General/GI Surgeon','General Surgery / 外科専門医','JSS Board-Certified Surgeon',url,'Japan Surgical Society official specialist directory',region='北海道',snap='2026-08-01'))
+          candidates=uniq(candidates); report['GeneralGI']=len(candidates); allrows+=candidates
+
+          # Critical care specialists — JSICM
+          urls=['https://www.jsicm.org/specialist/index.html','https://www.jsicm.org/specialist/']
+          candidates=[]; usedurl=''
+          for url in urls:
+            try:
+              s=BeautifulSoup(get(url).text,'lxml'); tmp=[]
+              for tr in s.find_all('tr'):
+                cells=[norm(x.get_text(' ',strip=True)) for x in tr.find_all(['td','th'])]
+                names=[c for c in cells if good_name(c)]
+                if names:
+                  n=names[0]; region=''
+                  for c in cells:
+                    if c!=n and re.match(r'^(北海道|東京都|京都府|大阪府|.{2,3}県)$',c): region=c
+                  tmp.append(row(n,'Critical Care Physician/Intensivist','Intensive Care / 集中治療科専門医','JSICM Intensive Care Specialist',url,'Japanese Society of Intensive Care Medicine official specialist list',region=region,snap='2026-04-01'))
+              tmp=uniq(tmp)
+              if len(tmp)>len(candidates): candidates=tmp; usedurl=url
+            except Exception: pass
+          report['CriticalCare']=len(candidates); allrows+=candidates
+
+          # Certified hospital pharmacists — JSHPh 2025 certification roster PDF
+          url='https://www.jshp.or.jp/education/bynintei/by-nintei-2025-n1.pdf'
+          data=get(url).content; reader=PdfReader(io.BytesIO(data)); text='\n'.join((p.extract_text() or '') for p in reader.pages)
+          candidates=[]
+          # certification number + Japanese name; handle two columns per extracted line
+          pat=re.compile(r'(\d{2}-\d{4}-\d{2})\s+([一-龯々〆ヵヶぁ-んァ-ヶー]{1,10}[ 　]+[一-龯々〆ヵヶぁ-んァ-ヶー]{1,14})')
+          for rid,n in pat.findall(text):
+            if good_name(n): candidates.append(row(n,'Clinical/Bedside Pharmacists','Hospital Pharmacy / 病院薬剤師','JSHPh Certified Hospital Pharmacist',url,'Japanese Society of Hospital Pharmacists official certification roster',rid=rid,snap='2025-07-01'))
+          candidates=uniq(candidates); report['Pharmacists']=len(candidates); allrows+=candidates
+
+          # Write all candidates and hard minimum QA
+          mins={'Trauma':240,'Neurosurgeon':240,'Cardiothoracic':240,'GeneralGI':240,'CriticalCare':350,'Pharmacists':300}
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          for k,m in mins.items():
+            if report.get(k,0)<m: raise SystemExit(f'{k}: only {report.get(k,0)} candidates; need >= {m}')
+          with open(OUT/'japan_candidates.csv','w',encoding='utf-8-sig',newline='') as f:
+            w=csv.DictWriter(f,fieldnames=cols); w.writeheader(); w.writerows(allrows)
+          (OUT/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+      - name: Upload Japan candidates
+        uses: actions/upload-artifact@v4
+        with:
+          name: osg-japan-candidates
+          path: osg_japan_candidates/
+          retention-days: 7
+      - name: Publish Japan candidate run ID
+        run: |
+          mkdir -p osg_hcp_recovered
+          printf '%s\n' "$GITHUB_RUN_ID" > osg_hcp_recovered/JAPAN_CANDIDATE_RUN_ID.txt
+          git config user.name 'osg-hcp-recovery-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add osg_hcp_recovered/JAPAN_CANDIDATE_RUN_ID.txt
+          git commit -m 'Publish Japan candidate artifact run ID'
+          git push
