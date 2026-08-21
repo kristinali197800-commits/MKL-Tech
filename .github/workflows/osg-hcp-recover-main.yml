@@ -1,0 +1,66 @@
+name: OSG HCP Recover Main
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/osg-hcp-recover-main.yml']
+permissions:
+  contents: write
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recover source CSVs
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p osg_hcp_recovered
+          P='e63dbb51-d6df-483d-8d6c-31e8b6c6bab9'
+          fetch_one(){
+            local f="$1"; shift
+            for u in \
+              "https://${P}.sandbox.floot.app/_cdn/${f}" \
+              "https://${P}.sandbox.floot.app/_cdn/static/${f}" \
+              "https://floot-client-app-storage.s3.us-east-1.amazonaws.com/apps/${P}/public/static/${f}" \
+              "https://floot-client-app-storage.s3.us-east-1.amazonaws.com/apps/${P}/public/static/public/static/${f}"; do
+              echo "Trying $u"
+              if curl -fsSL --retry 2 "$u" -o "osg_hcp_recovered/${f}.tmp"; then
+                if [ -s "osg_hcp_recovered/${f}.tmp" ]; then mv "osg_hcp_recovered/${f}.tmp" "osg_hcp_recovered/${f}"; echo "Recovered $f"; return 0; fi
+              fi
+            done
+            echo "Unable to recover $f" >&2; return 1
+          }
+          fetch_one osg_us_4400.csv
+          fetch_one osg_germany_3000.csv
+      - name: Validate quotas
+        run: |
+          python - <<'PY'
+          import csv,collections,json,pathlib
+          base=pathlib.Path('osg_hcp_recovered')
+          specs={
+          'osg_us_4400.csv':(4400,{'Anesthesiologist':400,'Emergency General/Trauma/Acute Care Surgeon':500,'Neurosurgeon':500,'Cardiothoracic Surgeon':500,'General/GI Surgeon':500,'Ortho Surgeon':500,'ER Physician':500,'Critical Care Physician/Intensivist':500,'Clinical/Bedside Pharmacists':500}),
+          'osg_germany_3000.csv':(3000,{'Anesthesiologist':400,'Emergency General/Trauma/Acute Care Surgeon':300,'Neurosurgeon':300,'Cardiothoracic Surgeon':300,'General/GI Surgeon':300,'Ortho Surgeon':300,'ER Physician':400,'Critical Care Physician/Intensivist':400,'Clinical/Bedside Pharmacists':300})}
+          report={}
+          aliases={'Clinical/Bedside Pharmacist':'Clinical/Bedside Pharmacists'}
+          for fn,(n,quota) in specs.items():
+            with open(base/fn,encoding='utf-8-sig',newline='') as f: rows=list(csv.DictReader(f))
+            if len(rows)!=n: raise SystemExit(f'{fn}: expected {n}, got {len(rows)}')
+            headers=list(rows[0])
+            cat=next((h for h in headers if h.strip().lower() in ('osg target category','category','osg_category')),None)
+            name=next((h for h in headers if h.strip().lower() in ('clinician','name','hcp name','provider name')),None)
+            if not cat or not name: raise SystemExit(f'{fn}: missing required columns {headers}')
+            counts=collections.Counter(aliases.get((r.get(cat) or '').strip(),(r.get(cat) or '').strip()) for r in rows)
+            if counts!=collections.Counter(quota): raise SystemExit(f'{fn}: quota mismatch {counts}')
+            if any(not (r.get(name) or '').strip() for r in rows): raise SystemExit(f'{fn}: blank names')
+            report[fn]={'rows':len(rows),'counts':dict(counts),'headers':headers}
+          (base/'validation.json').write_text(json.dumps(report,indent=2,ensure_ascii=False),encoding='utf-8')
+          print(json.dumps(report,indent=2,ensure_ascii=False))
+          PY
+      - name: Commit recovered data
+        run: |
+          git config user.name 'osg-hcp-recovery-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add osg_hcp_recovered/
+          git commit -m 'Recover validated OSG HCP US and Germany datasets'
+          git push
