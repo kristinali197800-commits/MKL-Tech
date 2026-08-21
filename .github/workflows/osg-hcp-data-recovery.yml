@@ -5,7 +5,8 @@ on:
     branches: [osg-hcp-data-recovery]
     paths:
       - '.github/workflows/osg-hcp-data-recovery.yml'
-      - 'scripts/osg_hcp_recovery.py'
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -32,27 +33,16 @@ jobs:
           }
           report={}
           for fn,(expected,quota) in targets.items():
-              p=out/fn
-              with p.open('r',encoding='utf-8-sig',newline='') as f:
+              with (out/fn).open('r',encoding='utf-8-sig',newline='') as f:
                   rows=list(csv.DictReader(f))
-              if len(rows)!=expected:
-                  raise SystemExit(f'{fn}: expected {expected} rows, got {len(rows)}')
-              if not rows:
-                  raise SystemExit(f'{fn}: empty')
+              if len(rows)!=expected: raise SystemExit(f'{fn}: expected {expected}, got {len(rows)}')
               cat_col=next((c for c in rows[0] if c.strip().lower() in {'osg target category','category','osg_category'}),None)
-              if not cat_col:
-                  raise SystemExit(f'{fn}: cannot find category column; headers={list(rows[0])}')
-              counts=collections.Counter((r.get(cat_col) or '').strip() for r in rows)
-              for k,v in quota.items():
-                  if counts.get(k)!=v:
-                      raise SystemExit(f'{fn}: {k} expected {v}, got {counts.get(k,0)}')
               name_col=next((c for c in rows[0] if c.strip().lower() in {'clinician','name','hcp name','provider name'}),None)
-              if not name_col:
-                  raise SystemExit(f'{fn}: cannot find clinician/name column')
-              blanks=sum(not (r.get(name_col) or '').strip() for r in rows)
-              if blanks:
-                  raise SystemExit(f'{fn}: {blanks} blank clinician names')
-              report[fn]={'rows':len(rows),'category_counts':dict(counts),'headers':list(rows[0])}
+              if not cat_col or not name_col: raise SystemExit(f'{fn}: required columns missing')
+              counts=collections.Counter((r.get(cat_col) or '').strip() for r in rows)
+              if counts != collections.Counter(quota): raise SystemExit(f'{fn}: quota mismatch {counts}')
+              if any(not (r.get(name_col) or '').strip() for r in rows): raise SystemExit(f'{fn}: blank clinician names')
+              report[fn]={'rows':len(rows),'counts':dict(counts),'headers':list(rows[0])}
           (out/'validation.json').write_text(json.dumps(report,indent=2,ensure_ascii=False),encoding='utf-8')
           print(json.dumps(report,indent=2,ensure_ascii=False))
           PY
