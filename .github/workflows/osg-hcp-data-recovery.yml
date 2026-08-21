@@ -1,0 +1,65 @@
+name: OSG HCP Data Recovery
+
+on:
+  push:
+    branches: [osg-hcp-data-recovery]
+    paths:
+      - '.github/workflows/osg-hcp-data-recovery.yml'
+      - 'scripts/osg_hcp_recovery.py'
+  workflow_dispatch:
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Recover and validate OSG HCP CSVs
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p osg_hcp_output
+          BASE='https://e63dbb51-d6df-483d-8d6c-31e8b6c6bab9.sandbox.floot.app/_cdn'
+          curl --fail --location --retry 4 --retry-delay 2 "$BASE/osg_us_4400.csv" -o osg_hcp_output/osg_us_4400.csv
+          curl --fail --location --retry 4 --retry-delay 2 "$BASE/osg_germany_3000.csv" -o osg_hcp_output/osg_germany_3000.csv
+          python - <<'PY'
+          import csv, json, pathlib, collections
+          out = pathlib.Path('osg_hcp_output')
+          targets = {
+              'osg_us_4400.csv': (4400, {'Anesthesiologist':400,'Emergency General/Trauma/Acute Care Surgeon':500,'Neurosurgeon':500,'Cardiothoracic Surgeon':500,'General/GI Surgeon':500,'Ortho Surgeon':500,'ER Physician':500,'Critical Care Physician/Intensivist':500,'Clinical/Bedside Pharmacists':500}),
+              'osg_germany_3000.csv': (3000, {'Anesthesiologist':400,'Emergency General/Trauma/Acute Care Surgeon':300,'Neurosurgeon':300,'Cardiothoracic Surgeon':300,'General/GI Surgeon':300,'Ortho Surgeon':300,'ER Physician':400,'Critical Care Physician/Intensivist':400,'Clinical/Bedside Pharmacists':300}),
+          }
+          report={}
+          for fn,(expected,quota) in targets.items():
+              p=out/fn
+              with p.open('r',encoding='utf-8-sig',newline='') as f:
+                  rows=list(csv.DictReader(f))
+              if len(rows)!=expected:
+                  raise SystemExit(f'{fn}: expected {expected} rows, got {len(rows)}')
+              if not rows:
+                  raise SystemExit(f'{fn}: empty')
+              cat_col=next((c for c in rows[0] if c.strip().lower() in {'osg target category','category','osg_category'}),None)
+              if not cat_col:
+                  raise SystemExit(f'{fn}: cannot find category column; headers={list(rows[0])}')
+              counts=collections.Counter((r.get(cat_col) or '').strip() for r in rows)
+              for k,v in quota.items():
+                  if counts.get(k)!=v:
+                      raise SystemExit(f'{fn}: {k} expected {v}, got {counts.get(k,0)}')
+              name_col=next((c for c in rows[0] if c.strip().lower() in {'clinician','name','hcp name','provider name'}),None)
+              if not name_col:
+                  raise SystemExit(f'{fn}: cannot find clinician/name column')
+              blanks=sum(not (r.get(name_col) or '').strip() for r in rows)
+              if blanks:
+                  raise SystemExit(f'{fn}: {blanks} blank clinician names')
+              report[fn]={'rows':len(rows),'category_counts':dict(counts),'headers':list(rows[0])}
+          (out/'validation.json').write_text(json.dumps(report,indent=2,ensure_ascii=False),encoding='utf-8')
+          print(json.dumps(report,indent=2,ensure_ascii=False))
+          PY
+
+      - name: Upload recovered CSVs
+        uses: actions/upload-artifact@v4
+        with:
+          name: osg-hcp-country-csvs
+          path: osg_hcp_output/
+          retention-days: 7
