@@ -2,27 +2,34 @@ name: OSG HCP Public Data Build
 on:
   push:
     branches: [osg-hcp-build-20260820]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: osg-hcp-build-20260820
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4 pypdf
       - name: Build public HCP datasets
         run: python tools/osg_hcp_build.py all
+      - name: Commit successful outputs to temporary branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add us_4400.csv de_3000.csv jp_gap_categories.csv
+          git commit -m "Generated OSG HCP public datasets" || exit 0
+          git push origin HEAD:osg-hcp-build-20260820
       - uses: actions/upload-artifact@v4
-        if: always()
         with:
           name: osg-hcp-public-data
           path: |
             us_4400.csv
             de_3000.csv
             jp_gap_categories.csv
-          if-no-files-found: warn
