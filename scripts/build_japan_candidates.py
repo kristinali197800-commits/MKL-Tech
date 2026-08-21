@@ -1,12 +1,12 @@
-import re,csv,io,json,pathlib,requests,unicodedata,traceback,urllib.parse
+import re,csv,io,json,pathlib,requests,unicodedata,traceback
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
 OUT=pathlib.Path('osg_japan_candidates'); OUT.mkdir(exist_ok=True)
-H={'User-Agent':'Mozilla/5.0 (compatible; OSG-HCP-Research/1.0)'}
+H={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/151 Safari/537.36'}
 def get(url):
-    r=requests.get(url,headers=H,timeout=40); r.raise_for_status(); return r
+    r=requests.get(url,headers=H,timeout=25); r.raise_for_status(); return r
 def norm(s): return re.sub(r'\s+',' ',unicodedata.normalize('NFKC',s or '')).strip()
-jpname=re.compile(r'^[一-龯々〆ヵヶぁ-んァ-ヶー]{1,10}[ 　]+[一-龯々〆ヵヶぁ-んァ-ヶー]{1,14}[〇○]?$')
+jpname=re.compile(r'^[一-龯々〆ヵヶぁ-んァ-ヶー﨑髙德邊邉]{1,12}[ 　]+[一-龯々〆ヵヶぁ-んァ-ヶー﨑髙德邊邉]{1,16}[〇○]?$')
 def good_name(s):
     s=norm(s).rstrip('〇○')
     return bool(jpname.match(s)) and not any(x in s for x in ('専門医','病院','大学','学会','一覧','都道府県','診療','検索','医師','会員','認定','外科','薬剤'))
@@ -14,8 +14,7 @@ def uniq(rows):
     seen=set(); out=[]
     for r in rows:
         n=norm(r['Clinician']).rstrip('〇○'); key=re.sub(r'[\s　]','',n)
-        if n and key not in seen:
-            seen.add(key); r['Clinician']=n; out.append(r)
+        if n and key not in seen: seen.add(key); r['Clinician']=n; out.append(r)
     return out
 cols=['Country','Region / State / Prefecture','City','ZIP','Clinician','Credential','OSG Target Category','Local / Source Specialty','Institution','Address','Phone','Professional Email','NPI / Registry ID','License','License State','Source URL','Source Type','Snapshot','Verification']
 def row(name,cat,local,cred,url,source,region='',inst='',rid='',snap='2026-08-20'):
@@ -65,29 +64,32 @@ add('GeneralGI',general)
 
 def critical():
     rs=[]
-    # JSICM serves actual specialist rows on kana-filtered URLs. Pull several broad kana groups.
-    for key in ['ア','エ','オ','カ','キ','ク','ケ','コ','サ','シ','ス','セ','ソ','タ','チ','ツ','テ','ト','ナ','ニ','ヌ','ネ','ノ','ハ','ヒ','フ','ヘ','ホ','マ','ミ','ム','メ','モ','ヤ','ユ','ヨ','ラ','リ','ル','レ','ロ','ワ']:
-        url='https://www.jsicm.org/specialist/index.html?kname_key='+urllib.parse.quote(key)
+    # Use a handful of JSICM server-filter URLs; collect any exact Japanese personal-name cells/text.
+    urls=[
+      'https://jsicm.org/specialist/index.html?kname_key=%E3%82%A8',
+      'https://jsicm.org/specialist/index.html?kname_key=%E3%83%A0',
+      'https://jsicm.org/specialist/index.html?pref=hokkaido',
+      'https://jsicm.org/specialist/index.html?pref=tokyo',
+      'https://jsicm.org/specialist/index.html?pref=osaka']
+    dbg=[]
+    for url in urls:
         try:
-            s=BeautifulSoup(get(url).text,'lxml')
-            # the returned table is name | prefecture; also accept short exact-name cells
-            for tr in s.find_all('tr'):
-                cells=[norm(x.get_text(' ',strip=True)) for x in tr.find_all(['td','th'])]
-                if not cells: continue
-                for c in cells:
-                    if good_name(c):
-                        region=next((x for x in cells if re.match(r'^(北海道|東京都|京都府|大阪府|.{2,3}県)$',x)), '')
-                        rs.append(row(c,'Critical Care Physician/Intensivist','Intensive Care / 集中治療科専門医','JSICM Intensive Care Specialist',url,'Japanese Society of Intensive Care Medicine official specialist list',region=region,snap='2026-04-01')); break
-            if len(uniq(rs))>=800: break
-        except Exception:
-            continue
+            resp=get(url); s=BeautifulSoup(resp.text,'lxml')
+            texts=[norm(x.get_text(' ',strip=True)) for x in s.find_all(['td','li','p','span','div'])]
+            matched=0
+            for t in texts:
+                if good_name(t):
+                    rs.append(row(t,'Critical Care Physician/Intensivist','Intensive Care / 集中治療科専門医','JSICM Intensive Care Specialist',url,'Japanese Society of Intensive Care Medicine official specialist list',snap='2026-04-01')); matched+=1
+            dbg.append({'url':url,'html_len':len(resp.text),'tags':len(texts),'matched':matched,'sample':texts[:20]})
+        except Exception as e: dbg.append({'url':url,'error':repr(e)})
+    errors['CriticalDebug']=dbg
     return rs
 add('CriticalCare',critical)
 
 def pharmacists():
     url='https://www.jshp.or.jp/education/bynintei/by-nintei-2025-n1.pdf'; data=get(url).content
     text='\n'.join((p.extract_text() or '') for p in PdfReader(io.BytesIO(data)).pages); rs=[]
-    pat=re.compile(r'(\d{2}-\d{4}-\d{2})\s+([一-龯々〆ヵヶぁ-んァ-ヶー]{1,10}[ 　]+[一-龯々〆ヵヶぁ-んァ-ヶー]{1,14})')
+    pat=re.compile(r'(\d{2}-\d{4}-\d{2})\s+([一-龯々〆ヵヶぁ-んァ-ヶー﨑髙德邊邉]{1,12}[ 　]+[一-龯々〆ヵヶぁ-んァ-ヶー﨑髙德邊邉]{1,16})')
     for rid,n in pat.findall(text):
         if good_name(n): rs.append(row(n,'Clinical/Bedside Pharmacists','Hospital Pharmacy / 病院薬剤師','JSHPh Certified Hospital Pharmacist',url,'Japanese Society of Hospital Pharmacists official certification roster',rid=rid,snap='2025-07-01'))
     return rs
