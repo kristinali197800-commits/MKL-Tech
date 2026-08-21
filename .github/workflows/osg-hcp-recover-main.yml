@@ -1,25 +1,26 @@
-name: OSG HCP Artifact Transfer
+name: OSG HCP Data Transfer
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/osg-hcp-recover-main.yml']
+    paths:
+      - '.github/workflows/osg-hcp-recover-main.yml'
+      - 'scripts/build_japan_candidates.py'
   workflow_dispatch:
 permissions:
   contents: write
 jobs:
   transfer:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - name: Validate committed country CSVs
+      - run: pip install requests beautifulsoup4 lxml pypdf
+      - name: Validate US and Germany committed datasets
         run: |
           python - <<'PY'
           import csv,collections,pathlib
           base=pathlib.Path('osg_hcp_recovered')
-          specs={
-          'osg_us_4400.csv':(4400,{'Anesthesiologist':400,'Emergency General/Trauma/Acute Care Surgeon':500,'Neurosurgeon':500,'Cardiothoracic Surgeon':500,'General/GI Surgeon':500,'Ortho Surgeon':500,'ER Physician':500,'Critical Care Physician/Intensivist':500,'Clinical/Bedside Pharmacists':500}),
-          'osg_germany_3000.csv':(3000,{'Anesthesiologist':400,'Emergency General/Trauma/Acute Care Surgeon':300,'Neurosurgeon':300,'Cardiothoracic Surgeon':300,'General/GI Surgeon':300,'Ortho Surgeon':300,'ER Physician':400,'Critical Care Physician/Intensivist':400,'Clinical/Bedside Pharmacists':300})}
+          specs={'osg_us_4400.csv':(4400,{'Anesthesiologist':400,'Emergency General/Trauma/Acute Care Surgeon':500,'Neurosurgeon':500,'Cardiothoracic Surgeon':500,'General/GI Surgeon':500,'Ortho Surgeon':500,'ER Physician':500,'Critical Care Physician/Intensivist':500,'Clinical/Bedside Pharmacists':500}),'osg_germany_3000.csv':(3000,{'Anesthesiologist':400,'Emergency General/Trauma/Acute Care Surgeon':300,'Neurosurgeon':300,'Cardiothoracic Surgeon':300,'General/GI Surgeon':300,'Ortho Surgeon':300,'ER Physician':400,'Critical Care Physician/Intensivist':400,'Clinical/Bedside Pharmacists':300})}
           aliases={'Clinical/Bedside Pharmacist':'Clinical/Bedside Pharmacists'}
           for fn,(n,quota) in specs.items():
             with open(base/fn,encoding='utf-8-sig',newline='') as f: rows=list(csv.DictReader(f))
@@ -29,19 +30,24 @@ jobs:
             counts=collections.Counter(aliases.get((r.get(cat) or '').strip(),(r.get(cat) or '').strip()) for r in rows)
             assert counts==collections.Counter(quota),(fn,counts)
             assert all((r.get(name) or '').strip() for r in rows),fn
-          print('Validated US 4400 and Germany 3000 exact quotas')
+          print('US/DE exact quota validation passed')
           PY
-      - name: Upload validated HCP country files
+      - name: Build Japan candidates
+        run: python scripts/build_japan_candidates.py
+      - name: Upload all HCP transfer files
         uses: actions/upload-artifact@v4
         with:
-          name: osg-hcp-country-csvs
-          path: osg_hcp_recovered/
+          name: osg-hcp-all-transfer
+          path: |
+            osg_hcp_recovered/
+            osg_japan_candidates/
           retention-days: 7
-      - name: Publish run ID for connector pickup
+      - name: Publish transfer run ID and Japan report
         run: |
-          printf '%s\n' "$GITHUB_RUN_ID" > osg_hcp_recovered/ARTIFACT_RUN_ID.txt
+          printf '%s\n' "$GITHUB_RUN_ID" > osg_hcp_recovered/ALL_TRANSFER_RUN_ID.txt
+          cp osg_japan_candidates/report.json osg_hcp_recovered/JAPAN_CANDIDATE_REPORT.json
           git config user.name 'osg-hcp-recovery-bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add osg_hcp_recovered/ARTIFACT_RUN_ID.txt
-          git commit -m 'Publish OSG HCP artifact run ID'
+          git add osg_hcp_recovered/ALL_TRANSFER_RUN_ID.txt osg_hcp_recovered/JAPAN_CANDIDATE_REPORT.json
+          git commit -m 'Publish Japan candidate report and transfer run ID'
           git push
