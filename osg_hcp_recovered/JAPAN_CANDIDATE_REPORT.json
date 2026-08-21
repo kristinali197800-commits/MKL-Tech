@@ -1,0 +1,11 @@
+{
+  "counts": {
+    "Trauma": 274,
+    "Neurosurgeon": 16156,
+    "Cardiothoracic": 2577,
+    "GeneralGI": 988,
+    "CriticalCare": 0,
+    "Pharmacists": 1732
+  },
+  "errors": {}
+}
