@@ -2,6 +2,8 @@ name: OSG HCP Public Data Build
 on:
   push:
     branches: [osg-hcp-build-20260820]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 jobs:
   build:
