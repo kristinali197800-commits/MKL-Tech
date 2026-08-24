@@ -1,128 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>About – MKL Tech</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Favicon + App Icons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="shortcut icon" href="favicon.ico">
-  <meta name="theme-color" content="#020816">
-</head>
-<body>
-
-<header class="navbar">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-left">
-      <div class="nav-logo">
-        <img src="mkl-logo.png" alt="MKL Tech logo">
-      </div>
-      <div>
-        <div class="nav-brand">MKL Tech</div>
-        <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
-      </div>
-    </a>
-
-
-    <!-- Mobile menu button -->
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-      <span></span>
-      <span></span>
-    </button>
-
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="about.html" class="active">About</a>
-      <a href="services.html">Services</a>
-      <a href="research.html">Research</a>
-      <a href="testimonials.html">Testimonials</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<main class="wrapper">
-  <section class="page-hero reveal delay-1">
-    <h1>About MKL Tech</h1>
-    <p>Started in Cherry Hill, NJ</p>
-  </section>
-
-  <section class="two-col">
-    <article class="text-block reveal delay-2">
-      <p>
-        MKL Tech was created because we noticed a gap in our community:
-        People were overpaying for computers that didn’t match their needs.
-        Stores pushed unnecessary parts, online guides were confusing,
-        and trustworthy alternatives were hard to find.
-      </p>
-      <p>
-        We began by helping classmates and local families build and repair PCs.
-        Over time, that work grew into MKL Tech.
-      </p>
-      <p>
-        Today, MKL Tech focuses on students, families, and budget-limited users who need reliable
-        computers without getting pressured into overspending.
-      </p>
-    </article>
-
-    <aside class="founders reveal delay-3">
-      <h2 style="margin-top:0; margin-bottom:0.6rem;">Founders</h2>
-      <div class="founder-item">
-        <span>Michael Li</span>
-        <span class="founder-role">Co-Founder</span>
-      </div>
-      <div class="founder-item">
-        <span>Kristina Li</span>
-        <span class="founder-role">Co-Founder</span>
-      </div>
-      <p style="margin-top:0.8rem; font-size:0.85rem; color:var(--text-muted);">
-        Every build and repair is handled directly by the founders — from part selection to final testing —
-        so customers always know who’s behind the work.
-      </p>
-    </aside>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="footer-inner">
-    <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
-    <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
-  </div>
-</footer>
-
-<script>
-  // Set year in footer
-  const yearEl = document.getElementById("year");
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
-
-  // Mobile nav toggle
-  const navToggle = document.getElementById("nav-toggle");
-  const navLinks = document.querySelector(".nav-links");
-
-  if (navToggle && navLinks) {
-    navToggle.addEventListener("click", () => {
-      navLinks.classList.toggle("open");
-    });
-  }
-
-  // Entrance animations
-  window.addEventListener("load", () => {
-    const reveals = document.querySelectorAll(".reveal");
-    reveals.forEach((el) => {
-      requestAnimationFrame(() => {
-        el.classList.add("show");
-      });
-    });
-  });
-</script>
-
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About | MKL-Tech</title>
+    <meta name="description" content="Meet MKL-Tech co-founders Kristina Li and Michael Li.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MKL-Tech">
+    <meta property="og:title" content="MKL-Tech | Custom &amp; Refurbished PCs">
+    <meta property="og:description" content="Affordable custom and refurbished PCs built, tested, and prepared by MKL-Tech.">
+    <meta property="og:url" content="https://mkltech.store/about.html">
+    <meta property="og:image" content="https://mkltech.store/assets/mkl-tech-share-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="MKL-Tech logo in a circle beside the MKL-Tech business name">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MKL-Tech | Custom &amp; Refurbished PCs">
+    <meta name="twitter:image" content="https://mkltech.store/assets/mkl-tech-share-card.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/mkl-favicon-v2.png">
+    <link rel="apple-touch-icon" href="assets/mkl-favicon-v2.png">
+    <link rel="stylesheet" href="styles.css?v=20260824a">
+  </head>
+  <body>
+    <header class="site-header impact-header solid" data-header>
+      <a class="brand" href="index.html" aria-label="MKL-Tech home"><img src="assets/mkl-logo-round.png" alt="MKL-Tech logo"><span><strong>MKL-Tech</strong><small>Cherry Hill, NJ</small></span></a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle><span></span><span></span></button>
+      <nav class="site-nav impact-nav" data-nav>
+        <a href="https://www.facebook.com/marketplace/profile/100022812621790/" target="_blank" rel="noopener">Shop Tech</a><a class="nav-trade" href="sell-trade.html">Sell or Trade In</a><a href="index.html#impact">Our Impact</a><a href="reviews.html">Reviews</a><a class="active" href="about.html">About</a><a href="contact.html">Contact</a>
+      </nav>
+    </header>
+    <main class="page-main">
+      <section class="page-hero">
+        <p class="section-kicker">About MKL-Tech</p>
+        <h1>Founder-led PC service.</h1>
+        <p>MKL-Tech is led by Kristina Li, COO, and Michael Li, CEO.</p>
+      </section>
+      <section class="section-wrap compact-page">
+        <div class="proof-panel">
+          <div>
+            <p class="section-kicker">How we work</p>
+            <h2>Direct from request to handoff.</h2>
+            <p>Build requests, customer communication, part planning, testing, and pickup details are handled by the MKL-Tech team.</p>
+          </div>
+          <div class="founder-note">
+            <span>Co-founders</span>
+            <p>Kristina Li manages operations and customer communication. Michael Li leads build planning, setup, and system checks.</p>
+          </div>
+        </div>
+      </section>
+      <section class="band">
+        <div class="section-wrap value-grid">
+          <article><h3>Clear</h3><p>Build choices are explained plainly before money goes into parts.</p></article>
+          <article><h3>Balanced</h3><p>Performance, thermals, storage, and upgrade room are considered together.</p></article>
+          <article><h3>Local</h3><p>Systems are prepared for straightforward handoff and setup.</p></article>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><div><img src="assets/mkl-logo.png" alt=""><span>MKL-Tech</span></div><p>Built, tested, and prepared by MKL-Tech.</p><small>&copy; <span data-year></span> MKL-Tech. All rights reserved.</small></footer>
+    <script src="script.js?v=20260824a"></script>
+  </body>
 </html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sell or Trade In Your Tech | MKL-Tech</title>
+    <meta name="description" content="Sell or trade in phones, tablets, laptops, PCs, components, and accessories locally with MKL-Tech in Cherry Hill, NJ.">
+    <meta name="theme-color" content="#020713">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/mkl-favicon-v2.png">
+    <link rel="apple-touch-icon" href="assets/mkl-favicon-v2.png">
+    <link rel="stylesheet" href="styles.css?v=20260824a">
+  </head>
+  <body class="impact-home-page trade-page">
+    <header class="site-header impact-header solid" data-header>
+      <a class="brand" href="index.html" aria-label="MKL-Tech home"><img src="assets/mkl-logo-round.png" alt="MKL-Tech logo"><span><strong>MKL-Tech</strong><small>Cherry Hill, NJ</small></span></a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle><span></span><span></span></button>
+      <nav class="site-nav impact-nav" data-nav>
+        <a href="https://www.facebook.com/marketplace/profile/100022812621790/" target="_blank" rel="noopener">Shop Tech</a>
+        <a class="nav-trade active" href="sell-trade.html">Sell or Trade In</a>
+        <a href="index.html#impact">Our Impact</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+    <main class="trade-main">
+      <section class="trade-intro">
+        <p class="impact-kicker">Local sell or trade-in</p>
+        <h1>Turn unused tech into your next upgrade.</h1>
+        <p>Tell us what you have and upload clear photos. We inspect devices in person and email a personalized offer—no instant quote that changes later.</p>
+        <ul class="impact-trust"><li>Cherry Hill inspection</li><li>Pickup when arranged</li><li>Honest condition review</li><li>Personalized email offer</li></ul>
+      </section>
+      <section class="trade-form-shell" aria-labelledby="trade-form-title">
+        <div class="trade-form-copy">
+          <p class="impact-kicker">Start here</p>
+          <h2 id="trade-form-title">Tell us about your device.</h2>
+          <p>Phones, tablets, MacBooks, laptops, PCs, monitors, components, and accessories are all welcome.</p>
+          <p><strong>Prefer email?</strong><br><a href="mailto:mkl.tech.pc@gmail.com">mkl.tech.pc@gmail.com</a></p>
+        </div>
+        <form class="request-form trade-form" action="https://formspree.io/f/mjkdzejd" method="POST" enctype="multipart/form-data" data-request-form>
+          <div class="form-row two">
+            <div><label for="trade-name">Name</label><input id="trade-name" name="name" type="text" autocomplete="name" required></div>
+            <div><label for="trade-email">Email</label><input id="trade-email" name="email" type="email" autocomplete="email" required></div>
+          </div>
+          <div class="form-row two">
+            <div><label for="trade-goal">What would you like to do?</label><select id="trade-goal" name="goal" required><option value="">Choose one</option><option>Sell my device</option><option>Trade toward another device</option><option>Not sure yet</option></select></div>
+            <div><label for="device-type">Device type</label><select id="device-type" name="device_type" required><option value="">Choose one</option><option>Phone</option><option>Tablet</option><option>MacBook or laptop</option><option>Desktop PC</option><option>Monitor or component</option><option>Accessory</option><option>Other tech</option></select></div>
+          </div>
+          <div class="form-row"><label for="device-model">Brand and model</label><input id="device-model" name="brand_model" type="text" placeholder="Example: iPhone 15 Pro, MacBook Pro M3, RTX 4070" required></div>
+          <div class="form-row two">
+            <div><label for="device-condition">Condition</label><select id="device-condition" name="condition" required><option value="">Choose one</option><option>Like new</option><option>Good</option><option>Fair / visible wear</option><option>Damaged or not working</option></select></div>
+            <div><label for="device-location">Your city</label><input id="device-location" name="city" type="text" placeholder="Cherry Hill, NJ" required></div>
+          </div>
+          <div class="form-row"><label for="device-details">Specs, included accessories, and any issues</label><textarea id="device-details" name="device_details" rows="5" placeholder="Storage, RAM, battery health, charger/box, cracks, repairs, locked accounts, or anything else we should know." required></textarea></div>
+          <div class="form-row"><label for="device-photos">Device photos</label><input id="device-photos" name="device_photos" type="file" accept="image/*" multiple required><small>Upload clear photos of the front, back, screen, ports, accessories, and any wear or damage.</small></div>
+          <input type="hidden" name="source" value="MKL-Tech sell or trade-in form">
+          <button class="impact-button primary trade-submit" type="submit">Request My Offer</button>
+          <p class="form-privacy">Submitting this form starts an inspection request. It does not guarantee a purchase or trade-in value.</p>
+        </form>
+      </section>
+    </main>
+    <footer class="site-footer impact-footer"><div><img src="assets/mkl-logo-round.png" alt=""><span>MKL-Tech</span></div><p>Tech deserves more life.</p><small>&copy; <span data-year></span> MKL-Tech. All rights reserved.</small></footer>
+    <script src="script.js?v=20260824a"></script>
+  </body>
+</html>

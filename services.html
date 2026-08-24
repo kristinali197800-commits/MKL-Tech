@@ -1,155 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>About – MKL Tech</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Favicon + App Icons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="shortcut icon" href="favicon.ico">
-  <meta name="theme-color" content="#020816">
-</head>
-<body>
-
-<header class="navbar">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-left">
-      <div class="nav-logo">
-        <img src="mkl-logo.png" alt="MKL Tech logo">
-      </div>
-      <div>
-        <div class="nav-brand">MKL Tech</div>
-        <div class="nav-tagline">Custom PCs • Upgrades • Repairs</div>
-      </div>
-    </a>
-
-
-    <!-- Mobile menu button -->
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-      <span></span>
-      <span></span>
-    </button>
-
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="services.html" class="active">Services</a>
-      <a href="research.html">Research</a>
-      <a href="testimonials.html">Testimonials</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<main class="wrapper">
-  <section class="page-hero reveal delay-1">
-    <h1>Services</h1>
-    <p>Clear, affordable help for your current PC or your next build.</p>
-  </section>
-
-  <section class="section reveal delay-2">
-    <div class="section-head">
-      <h2 class="section-title">Custom PCs</h2>
-      <p class="section-muted">We walk you through every part choice and keep you on budget.</p>
-    </div>
-    <div class="card-grid">
-      <article class="card">
-        <h3>Budget / School builds</h3>
-        <p>Stable systems for school, office work, and light gaming — built to last.</p>
-      </article>
-      <article class="card">
-        <h3>Creator &amp; productivity builds</h3>
-        <p>CPU- and RAM-optimized builds for editing, design, and multitasking heavy workloads.</p>
-      </article>
-      <article class="card">
-        <h3>Gaming builds</h3>
-        <p>Balanced FPS for the price — no overpriced RGB or wasted power where you don’t need it.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section reveal delay-3">
-    <div class="section-head">
-      <h2 class="section-title">Upgrades &amp; Repairs</h2>
-      <p class="section-muted">Breathe new life into the PC you already own.</p>
-    </div>
-    <div class="card-grid">
-      <article class="card">
-        <h3>Performance upgrades</h3>
-        <p>SSD, RAM, and GPU upgrades with honest advice on what will actually make a difference.</p>
-      </article>
-      <article class="card">
-        <h3>Diagnostics</h3>
-        <p>Slow boot, random crashes, or strange noises — we’ll help figure out what’s wrong.</p>
-      </article>
-      <article class="card">
-        <h3>Cleaning &amp; optimization</h3>
-        <p>Thermal paste refresh, dust cleaning, and fan curve tuning to keep temps under control.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section reveal delay-4">
-    <div class="section-head">
-      <h2 class="section-title">How it works</h2>
-    </div>
-    <div class="card-grid">
-      <article class="card">
-        <h3>1. Quick chat</h3>
-        <p>You tell us what you use your PC for, what you already have, and what your budget is.</p>
-      </article>
-      <article class="card">
-        <h3>2. Clear options</h3>
-        <p>We send you a few part / service options with simple pros &amp; cons, no pressure.</p>
-      </article>
-      <article class="card">
-        <h3>3. Build &amp; handoff</h3>
-        <p>We build, test, and help you set things up so you’re ready on day one.</p>
-      </article>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="footer-inner">
-    <span>© <span id="year"></span> MKL Tech. All rights reserved.</span>
-    <span>Based in Cherry Hill, NJ · PC service for students & families.</span>
-  </div>
-</footer>
-
-<script>
-  // Set year in footer
-  const yearEl = document.getElementById("year");
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
-
-  // Mobile nav toggle
-  const navToggle = document.getElementById("nav-toggle");
-  const navLinks = document.querySelector(".nav-links");
-
-  if (navToggle && navLinks) {
-    navToggle.addEventListener("click", () => {
-      navLinks.classList.toggle("open");
-    });
-  }
-
-  // Entrance animations
-  window.addEventListener("load", () => {
-    const reveals = document.querySelectorAll(".reveal");
-    reveals.forEach((el) => {
-      requestAnimationFrame(() => {
-        el.classList.add("show");
-      });
-    });
-  });
-</script>
-
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Services | MKL-Tech</title>
+    <meta name="description" content="Custom computers, refurbished systems, upgrades, setup support, components, and practical tech at fair prices from MKL-Tech.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="MKL-Tech">
+    <meta property="og:title" content="MKL-Tech Services | Computers &amp; Tech">
+    <meta property="og:description" content="Custom computers, refurbished systems, upgrades, components, and practical tech at fair prices.">
+    <meta property="og:url" content="https://mkltech.store/services.html">
+    <meta property="og:image" content="https://mkltech.store/assets/mkl-tech-share-card.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="MKL-Tech logo in a circle beside the MKL-Tech business name">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MKL-Tech Services | Computers &amp; Tech">
+    <meta name="twitter:image" content="https://mkltech.store/assets/mkl-tech-share-card.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/mkl-favicon-v2.png">
+    <link rel="apple-touch-icon" href="assets/mkl-favicon-v2.png">
+    <link rel="stylesheet" href="styles.css?v=20260824a">
+  </head>
+  <body>
+    <header class="site-header impact-header solid" data-header>
+      <a class="brand" href="index.html" aria-label="MKL-Tech home"><img src="assets/mkl-logo-round.png" alt="MKL-Tech logo"><span><strong>MKL-Tech</strong><small>Cherry Hill, NJ</small></span></a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle><span></span><span></span></button>
+      <nav class="site-nav impact-nav" data-nav>
+        <a href="https://www.facebook.com/marketplace/profile/100022812621790/" target="_blank" rel="noopener">Shop Tech</a><a class="nav-trade" href="sell-trade.html">Sell or Trade In</a><a href="index.html#impact">Our Impact</a><a href="reviews.html">Reviews</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+      </nav>
+    </header>
+    <main class="page-main">
+      <section class="page-hero">
+        <p class="section-kicker">Services</p>
+        <h1>Computers, upgrades, and everyday tech.</h1>
+        <p>Custom PCs, refurbished systems, components, electronics, and more.</p>
+      </section>
+      <section class="section-wrap services-overview">
+        <div class="section-heading">
+          <p class="section-kicker">What we do</p>
+          <h2>Practical tech for your needs and budget.</h2>
+        </div>
+        <div class="service-grid">
+          <article class="service-card"><h3>Custom computers</h3><p>Built around your budget, work style, and games.</p></article>
+          <article class="service-card"><h3>Refurbished computers</h3><p>Reliable systems with strong performance at a fair price.</p></article>
+          <article class="service-card"><h3>Tech, electronics, and parts</h3><p>We also sell PC parts, accessories, and a wide range of other tech and electronics.</p></article>
+          <article class="service-card"><h3>Targeted upgrades</h3><p>Experiencing slowdowns, heat, or low storage? We identify the problem and fix it.</p></article>
+        </div>
+      </section>
+      <section class="band">
+        <div class="section-wrap simple-process">
+          <div class="section-heading"><p class="section-kicker">Getting started</p><h2>A simple request process.</h2></div>
+          <ol class="process-grid">
+            <li><span>01</span><h3>Share your needs</h3><p>Share your budget, what you need, and how you plan to use it.</p></li>
+            <li><span>02</span><h3>Review your options</h3><p>We explain the choices that fit your budget and needs.</p></li>
+            <li class="process-short"><span>03</span><h3>We prepare your order</h3></li>
+            <li class="process-short"><span>04</span><h3>Pick up, ready to use</h3></li>
+          </ol>
+          <div class="section-cta">
+            <a class="button primary" href="contact.html">Contact Us</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><div><img src="assets/mkl-logo.png" alt=""><span>MKL-Tech</span></div><p>Computers and tech, prepared by MKL-Tech.</p><small>&copy; <span data-year></span> MKL-Tech. All rights reserved.</small></footer>
+    <script src="script.js?v=20260824a"></script>
+  </body>
 </html>

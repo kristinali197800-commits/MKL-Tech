@@ -1,0 +1,17 @@
+.git
+design-qa-compare.html
+design-qa-comparison.png
+design-qa.md
+implementation-desktop.png
+implementation-mobile.png
+mobile-qa.html
+qa-source.png
+osg_hcp_recovered
+scripts
+*.py
+*.csv
+*.json
+/build*.jpg
+research.html
+style.css
+testimonials.html
