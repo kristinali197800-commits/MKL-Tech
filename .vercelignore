@@ -1,9 +1,13 @@
 .git
 design-qa-compare.html
 design-qa-comparison.png
+design-qa-revision-comparison.png
 design-qa.md
 implementation-desktop.png
 implementation-mobile.png
+implementation-impact-page.png
+implementation-revision-desktop.png
+implementation-revision-mobile.png
 mobile-qa.html
 qa-source.png
 osg_hcp_recovered

@@ -287,3 +287,28 @@ if (heroCanvas instanceof HTMLCanvasElement) {
     window.addEventListener("pagehide", () => window.cancelAnimationFrame(animationFrame), { once: true });
   }
 }
+
+const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+const revealTargets = document.querySelectorAll(
+  ".impact-section-heading, .inventory-photo, .lifecycle-grid li, .trade-process-card, .tech-category, .win-win-grid article, .metrics-grid, .methodology, .impact-page-cta"
+);
+
+if (!motionPreference.matches && "IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -8%", threshold: 0.12 });
+
+  revealTargets.forEach((target, index) => {
+    target.classList.add("is-reveal");
+    if (target instanceof HTMLElement) {
+      target.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
+    }
+    revealObserver.observe(target);
+  });
+} else {
+  revealTargets.forEach((target) => target.classList.add("is-visible"));
+}
