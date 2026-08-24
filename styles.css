@@ -3316,3 +3316,44 @@ body.impact-home-page main {
     line-height: 0.98;
   }
 }
+
+/* Real Marketplace product cutouts: preserve the PC photo, remove every other photo background. */
+.inventory-main,
+.inventory-top,
+.inventory-bottom,
+.tech-category:not(:first-child) {
+  background:
+    radial-gradient(circle at 50% 44%, rgba(91, 84, 214, 0.18), transparent 50%),
+    linear-gradient(145deg, rgba(10, 25, 51, 0.98), rgba(4, 10, 25, 0.98) 64%, rgba(18, 8, 39, 0.96));
+}
+
+.inventory-main img,
+.inventory-top img,
+.inventory-bottom img,
+.tech-category:not(:first-child) img {
+  box-sizing: border-box;
+  object-fit: contain;
+  object-position: center;
+  padding: 22px;
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.38));
+}
+
+.inventory-main img {
+  padding: 18px;
+}
+
+.inventory-bottom img {
+  padding: 14px 24px 30px;
+}
+
+.inventory-accent img,
+.tech-category:first-child img {
+  padding: 0;
+  object-fit: cover;
+}
+
+@media (max-width: 720px) {
+  .tech-category:not(:first-child) img {
+    padding: 12px;
+  }
+}
