@@ -3357,3 +3357,53 @@ body.impact-home-page main {
     padding: 12px;
   }
 }
+
+/* Annotation pass: a larger, uncropped PC feature and a quieter utility nav. */
+@media (min-width: 721px) {
+  .inventory-collage {
+    height: clamp(620px, 55vw, 700px);
+  }
+
+  .inventory-main {
+    grid-column: 1 / 8;
+    grid-row: 1 / 8;
+  }
+
+  .inventory-top {
+    grid-column: 8 / 13;
+    grid-row: 1 / 4;
+  }
+
+  .inventory-bottom {
+    grid-column: 8 / 13;
+    grid-row: 4 / 8;
+  }
+
+  .inventory-accent {
+    grid-column: 1 / 13;
+    grid-row: 8 / 13;
+  }
+}
+
+.inventory-accent {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(113, 82, 238, 0.18), transparent 48%),
+    linear-gradient(145deg, rgba(8, 20, 43, 0.98), rgba(5, 8, 23, 0.98) 64%, rgba(18, 8, 39, 0.96));
+}
+
+.inventory-accent img {
+  box-sizing: border-box;
+  object-fit: contain;
+  object-position: center;
+  padding: 10px 16px 24px;
+}
+
+@media (max-width: 720px) {
+  .inventory-accent {
+    min-height: 340px;
+  }
+
+  .inventory-accent img {
+    padding: 10px 12px 28px;
+  }
+}
