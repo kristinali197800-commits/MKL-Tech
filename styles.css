@@ -3407,3 +3407,24 @@ body.impact-home-page main {
     padding: 10px 12px 28px;
   }
 }
+
+.impact-value-line {
+  max-width: 620px;
+  margin: 20px 0 0;
+  color: #eeeaff;
+  font-size: clamp(1.08rem, 1.55vw, 1.42rem);
+  font-weight: 780;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.impact-value-line + .impact-lede {
+  margin-top: 16px;
+}
+
+@media (max-width: 720px) {
+  .impact-value-line {
+    margin-top: 18px;
+    font-size: 1.08rem;
+  }
+}
