@@ -1250,6 +1250,53 @@ textarea:focus {
   }
 }
 
+.about-impact-section {
+  scroll-margin-top: 110px;
+}
+
+.about-founder-grid article {
+  min-height: 320px;
+}
+
+.redirect-page {
+  width: min(760px, calc(100% - 40px));
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 72px 0;
+}
+
+.redirect-page .brand {
+  position: static;
+  margin-bottom: 42px;
+}
+
+.redirect-page h1 {
+  max-width: 700px;
+  margin: 8px 0 18px;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+.redirect-page > p:not(.impact-kicker) {
+  color: #aeb9ce;
+  font-size: 1.05rem;
+}
+
+.redirect-page a {
+  color: #8ed3ff;
+}
+
+@media (max-width: 720px) {
+  .about-founder-grid article {
+    min-height: auto;
+  }
+}
+
 /* Restored MKL-Tech gradient atmosphere and motion system. */
 body.impact-home-page {
   position: relative;
@@ -3428,13 +3475,15 @@ body.impact-home-page main {
 }
 
 .impact-value-line {
+  display: inline-block;
   max-width: 620px;
-  margin: 20px 0 0;
-  color: #eeeaff;
-  font-size: clamp(1.08rem, 1.55vw, 1.42rem);
-  font-weight: 780;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
+  margin: 22px 0 0;
+  color: #8ed3ff;
+  font-size: clamp(0.78rem, 1vw, 0.94rem);
+  font-weight: 680;
+  letter-spacing: 0.14em;
+  line-height: 1.45;
+  text-transform: uppercase;
 }
 
 .impact-value-line + .impact-lede {
@@ -3444,7 +3493,8 @@ body.impact-home-page main {
 @media (max-width: 720px) {
   .impact-value-line {
     margin-top: 18px;
-    font-size: 1.08rem;
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
   }
 }
 
