@@ -2206,6 +2206,7 @@ body.impact-home-page main {
   border-radius: 28px;
   background: #050d1b;
   padding: clamp(28px, 5vw, 68px);
+  overflow: hidden;
 }
 
 .trade-form-copy {
@@ -2224,11 +2225,24 @@ body.impact-home-page main {
 }
 
 .trade-form {
+  min-width: 0;
   width: 100%;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  padding: 0;
+  max-width: 100%;
+  border: 1px solid rgba(144, 173, 231, 0.2);
+  border-radius: 20px;
+  background: rgba(9, 24, 48, 0.74);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.22);
+  padding: clamp(22px, 3vw, 34px);
+  overflow: hidden;
+}
+
+.trade-form .form-row,
+.trade-form .form-row > div,
+.trade-form input,
+.trade-form select,
+.trade-form textarea {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .trade-form .form-row {
@@ -2435,6 +2449,11 @@ body.impact-home-page main {
   .trade-form-shell {
     border-radius: 22px;
     padding: 24px 18px;
+  }
+
+  .trade-form {
+    border-radius: 16px;
+    padding: 18px 14px;
   }
 
   .trade-form .form-row.two {
