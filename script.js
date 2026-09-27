@@ -390,7 +390,7 @@ if (marketplaceShop) {
     label.className = "listing-label";
     label.textContent = listing.sold ? "Sold" : "Available";
 
-    const heading = document.createElement("h3");
+    const heading = document.createElement("h2");
     heading.textContent = title;
 
     const meta = document.createElement("p");

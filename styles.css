@@ -3819,6 +3819,7 @@ body.impact-home-page {
   gap: 28px;
 }
 
+.shop-heading-row h1,
 .shop-heading-row h2 {
   margin: 0;
   color: #f5fffc;
@@ -3975,6 +3976,7 @@ body.impact-home-page {
   text-transform: uppercase;
 }
 
+.marketplace-card h2,
 .marketplace-card h3 {
   min-height: 3.9em;
   margin: 0;
@@ -4226,6 +4228,7 @@ body.impact-home-page {
     gap: 16px;
   }
 
+  .shop-heading-row h1,
   .shop-heading-row h2 {
     font-size: 2rem;
   }
@@ -4291,6 +4294,7 @@ body.impact-home-page {
     padding: 14px;
   }
 
+  .marketplace-card h2,
   .marketplace-card h3 {
     min-height: 0;
     font-size: 0.8rem;
@@ -4399,4 +4403,25 @@ body.impact-home-page {
 
 .marketplace-card[hidden] {
   display: none;
+}
+
+.shop-archive-main {
+  min-height: calc(100vh - 220px);
+  padding-top: 82px;
+}
+
+.shop-archive-main .marketplace-shop {
+  padding-top: 64px;
+  padding-bottom: 96px;
+}
+
+@media (max-width: 720px) {
+  .shop-archive-main {
+    padding-top: 74px;
+  }
+
+  .shop-archive-main .marketplace-shop {
+    padding-top: 38px;
+    padding-bottom: 64px;
+  }
 }
