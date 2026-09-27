@@ -324,6 +324,7 @@ if (marketplaceShop) {
   const sort = marketplaceShop.querySelector("[data-listing-sort]");
   const empty = marketplaceShop.querySelector("[data-listing-empty]");
   const loadMore = marketplaceShop.querySelector("[data-listing-load-more]");
+  const facebookMore = marketplaceShop.querySelector("[data-listing-facebook-more]");
   let showAllListings = false;
 
   function listingCategory(title) {
@@ -443,6 +444,7 @@ if (marketplaceShop) {
     });
 
     if (loadMore instanceof HTMLButtonElement) loadMore.hidden = sortedCards.length <= visibleLimit;
+    if (facebookMore instanceof HTMLAnchorElement) facebookMore.hidden = !showAllListings;
     if (empty) empty.hidden = sortedCards.length !== 0;
   }
 

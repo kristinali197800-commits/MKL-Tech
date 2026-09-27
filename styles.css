@@ -4032,6 +4032,11 @@ body.impact-home-page {
   transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
 }
 
+.listing-load-more[hidden],
+.listing-facebook-more[hidden] {
+  display: none;
+}
+
 .listing-facebook-more {
   border-color: transparent;
   background: linear-gradient(110deg, #16bb87 0%, #55f0c0 54%, #3fe4d6 100%);
