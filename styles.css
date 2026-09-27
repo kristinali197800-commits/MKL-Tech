@@ -4124,23 +4124,68 @@ body.impact-home-page {
 
 @media (max-width: 720px) {
   .marketplace-hero {
-    padding: 112px 18px 64px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 10px;
+    padding: 94px 18px 38px;
+  }
+
+  .marketplace-hero .impact-hero-copy {
+    grid-column: 1 / -1;
   }
 
   .marketplace-hero h1 {
-    font-size: clamp(2.35rem, 10vw, 3.25rem);
-    letter-spacing: -0.035em;
-    line-height: 1.04;
+    font-size: clamp(1.95rem, 8.3vw, 2.45rem);
+    letter-spacing: -0.03em;
+    line-height: 1.06;
   }
 
   .marketplace-hero .impact-lede {
-    font-size: 0.96rem;
+    margin-top: 18px;
+    font-size: 0.9rem;
+    line-height: 1.55;
   }
 
-  .marketplace-proof,
+  .marketplace-hero .impact-kicker {
+    margin-bottom: 10px;
+    font-size: 0.64rem;
+    letter-spacing: 0.15em;
+  }
+
+  .marketplace-hero .impact-actions {
+    align-items: stretch;
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .marketplace-hero .impact-button {
+    width: auto;
+    min-height: 44px;
+    flex: 1;
+    font-size: 0.8rem;
+    padding: 10px 12px;
+  }
+
+  .marketplace-proof {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    gap: 7px 16px;
+    margin-top: 18px;
+    font-size: 0.8rem;
+  }
+
+  .marketplace-proof a {
+    grid-column: 1 / -1;
+  }
+
   .seller-strengths {
-    align-items: center;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    gap: 5px 22px;
+    margin-top: 10px;
+    font-size: 0.7rem;
   }
 
   .seller-strengths li + li::before {
@@ -4148,26 +4193,70 @@ body.impact-home-page {
   }
 
   .hero-listing-rail {
+    grid-row: 2;
+    grid-template-columns: 1fr;
     gap: 10px;
+  }
+
+  .hero-listing-left {
+    grid-column: 1;
+  }
+
+  .hero-listing-right {
+    grid-column: 2;
+  }
+
+  .hero-listing-rail .hero-pc-build img {
+    height: min(34vw, 145px);
   }
 
   .hero-listing-rail span {
     font-size: 0.66rem;
-    padding-inline: 8px;
+    padding: 6px 9px;
   }
 
   .marketplace-shop {
     width: min(100% - 32px, 1460px);
+    padding-top: 56px;
   }
 
   .shop-heading-row {
     align-items: flex-start;
     flex-direction: column;
+    gap: 16px;
   }
 
-  .listing-controls,
+  .shop-heading-row h2 {
+    font-size: 2rem;
+  }
+
+  .shop-heading-row p:not(.impact-kicker) {
+    margin-top: 10px;
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .listing-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 22px;
+  }
+
+  .listing-controls input,
+  .listing-controls select {
+    min-height: 44px;
+    font-size: 0.78rem;
+    padding-inline: 11px;
+  }
+
+  .listing-controls label:first-child,
+  .listing-controls label:last-child {
+    grid-column: 1 / -1;
+  }
+
   .marketplace-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .listing-search {
@@ -4191,27 +4280,123 @@ body.impact-home-page {
 
   .marketplace-image img {
     height: 100%;
-    min-height: 210px;
+    min-height: 154px;
     aspect-ratio: auto;
   }
 
   .marketplace-image-placeholder {
     height: 100%;
-    min-height: 210px;
+    min-height: 154px;
     aspect-ratio: auto;
     padding: 14px;
   }
 
   .marketplace-card h3 {
     min-height: 0;
-    font-size: 0.88rem;
+    font-size: 0.8rem;
+    line-height: 1.28;
   }
 
   .marketplace-card-copy {
-    padding: 16px 14px;
+    padding: 13px 12px;
+  }
+
+  .listing-label {
+    margin-bottom: 7px;
+    font-size: 0.6rem;
+  }
+
+  .marketplace-card p {
+    margin: 9px 0 10px;
+    font-size: 0.7rem;
   }
 
   .marketplace-card strong {
-    font-size: 1.45rem;
+    font-size: 1.25rem;
   }
+
+  .lifecycle {
+    padding-block: 60px;
+  }
+
+  .lifecycle .impact-section-heading {
+    margin-bottom: 26px;
+  }
+
+  .lifecycle .impact-section-heading h2 {
+    font-size: 2.05rem;
+    line-height: 1.02;
+  }
+
+  .lifecycle .impact-section-heading > p:last-child {
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .lifecycle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .lifecycle-grid li {
+    padding: 15px;
+  }
+
+  .lifecycle-grid .step-mark {
+    width: 52px;
+    height: 52px;
+  }
+
+  .lifecycle-grid .step-mark .material-symbols-rounded {
+    font-size: 24px;
+  }
+
+  .lifecycle-grid .step-mark small {
+    min-width: 22px;
+    font-size: 0.58rem;
+    line-height: 22px;
+  }
+
+  .lifecycle-grid h3 {
+    margin: 16px 0 7px;
+    font-size: 0.9rem;
+  }
+
+  .lifecycle-grid p {
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+
+  .trade-process-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 12px;
+  }
+
+  .trade-process-card div {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .trade-process-card div:nth-child(odd) {
+    border-right: 1px solid rgba(144, 173, 231, 0.12);
+  }
+
+  .trade-process-card div:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  .trade-process-card strong {
+    margin-bottom: 6px;
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .trade-process-card p {
+    font-size: 0.7rem;
+    line-height: 1.48;
+  }
+}
+
+.marketplace-card[hidden] {
+  display: none;
 }
