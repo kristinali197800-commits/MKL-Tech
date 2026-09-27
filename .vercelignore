@@ -15,6 +15,7 @@ scripts
 *.py
 *.csv
 *.json
+!assets/facebook-listings/listings.json
 /build*.jpg
 research.html
 style.css

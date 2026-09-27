@@ -312,3 +312,173 @@ if (!motionPreference.matches && "IntersectionObserver" in window) {
 } else {
   revealTargets.forEach((target) => target.classList.add("is-visible"));
 }
+
+const marketplaceShop = document.querySelector("[data-marketplace-shop]");
+
+if (marketplaceShop) {
+  const grid = marketplaceShop.querySelector("[data-listing-grid]");
+  let cards = Array.from(marketplaceShop.querySelectorAll("[data-listing-card]"));
+  const search = marketplaceShop.querySelector("[data-listing-search]");
+  const category = marketplaceShop.querySelector("[data-listing-category]");
+  const status = marketplaceShop.querySelector("[data-listing-status]");
+  const sort = marketplaceShop.querySelector("[data-listing-sort]");
+  const empty = marketplaceShop.querySelector("[data-listing-empty]");
+  const loadMore = marketplaceShop.querySelector("[data-listing-load-more]");
+  let showAllListings = false;
+
+  function listingCategory(title) {
+    const value = title.toLowerCase();
+    if (/monitor|display/.test(value)) return "display";
+    if (/airpods|headset|headphone|speaker|microphone|sound card|audio|scarlett/.test(value)) return "audio";
+    if (/macbook|laptop/.test(value)) return "laptop";
+    if (/iphone|ipad|apple watch|apple pencil|magic keyboard|screen protector/.test(value)) return "mobile";
+    if (/gaming pc|alienware|\bpc\b|gpu|graphics card|rtx|radeon|ryzen|intel core|\bcpu\b|\bram\b|memory|motherboard|power supply|ssd|hdd|nvme|pc case|case fan|\bfan\b|cooler|\baio\b|thermal paste|goldshell|keyboard|keycaps|mouse|controller|wi-fi|hdmi|cable|webcam|stream deck|gimbal|usb-c power adapter|ledger nano|corsair icue sp120/.test(value)) return "component";
+    return "other";
+  }
+
+  function categoryLabel(value) {
+    return {
+      display: "Display",
+      audio: "Audio",
+      laptop: "Laptop",
+      mobile: "Phone or tablet",
+      component: "PC or component",
+    }[value] || "Marketplace";
+  }
+
+  function createListingCard(listing) {
+    const card = document.createElement("a");
+    const title = String(listing.title || "Facebook Marketplace listing");
+    const itemCategory = listingCategory(title);
+    const fileRecency = Number(String(listing.file || "0").split("_")[0]) || Number(listing.order || 0);
+    const availability = listing.sold ? "sold" : "available";
+
+    card.className = `marketplace-card marketplace-card-${availability}`;
+    card.dataset.listingCard = "";
+    card.dataset.order = String(fileRecency);
+    card.dataset.price = String(listing.priceValue || 0);
+    card.dataset.category = itemCategory;
+    card.dataset.status = availability;
+    card.href = listing.href;
+    card.target = "_blank";
+    card.rel = "noopener";
+
+    const imageWrap = document.createElement("div");
+    imageWrap.className = "marketplace-image";
+
+    if (listing.image) {
+      const image = document.createElement("img");
+      image.src = listing.image;
+      image.alt = `${title}, photographed for the MKL-Tech Facebook Marketplace listing`;
+      image.loading = "lazy";
+      image.decoding = "async";
+      imageWrap.appendChild(image);
+    } else {
+      imageWrap.classList.add("marketplace-image-placeholder");
+      const placeholder = document.createElement("span");
+      placeholder.textContent = "View original listing photo on Facebook";
+      imageWrap.appendChild(placeholder);
+    }
+
+    const copy = document.createElement("div");
+    copy.className = "marketplace-card-copy";
+
+    const label = document.createElement("span");
+    label.className = "listing-label";
+    label.textContent = listing.sold ? "Sold" : "Available";
+
+    const heading = document.createElement("h3");
+    heading.textContent = title;
+
+    const meta = document.createElement("p");
+    meta.textContent = categoryLabel(itemCategory);
+
+    const price = document.createElement("strong");
+    price.textContent = listing.price || "Free";
+
+    copy.append(label, heading, meta, price);
+    card.append(imageWrap, copy);
+    return card;
+  }
+
+  function updateMarketplaceListings() {
+    if (!grid) return;
+
+    const query = search instanceof HTMLInputElement ? search.value.trim().toLowerCase() : "";
+    const selectedCategory = category instanceof HTMLSelectElement ? category.value : "all";
+    const selectedStatus = status instanceof HTMLSelectElement ? status.value : "all";
+    const selectedSort = sort instanceof HTMLSelectElement ? sort.value : "newest";
+
+    const matchingCards = cards.filter((card) => {
+      const matchesSearch = !query || (card.textContent || "").toLowerCase().includes(query);
+      const matchesCategory = selectedCategory === "all" || card.dataset.category === selectedCategory;
+      const matchesStatus = selectedStatus === "all" || card.dataset.status === selectedStatus;
+      return matchesSearch && matchesCategory && matchesStatus;
+    });
+
+    const sortedCards = [...matchingCards].sort((a, b) => {
+      const aOrder = Number(a.dataset.order || 0);
+      const bOrder = Number(b.dataset.order || 0);
+      const aPrice = Number(a.dataset.price || 0);
+      const bPrice = Number(b.dataset.price || 0);
+      const aAvailable = a.dataset.status === "available" ? 1 : 0;
+      const bAvailable = b.dataset.status === "available" ? 1 : 0;
+
+      if (selectedSort === "oldest") return aOrder - bOrder;
+      if (selectedSort === "price-low") return aPrice - bPrice;
+      if (selectedSort === "price-high") return bPrice - aPrice;
+      if (aAvailable !== bAvailable) return bAvailable - aAvailable;
+      return bOrder - aOrder;
+    });
+
+    cards.forEach((card) => {
+      card.hidden = true;
+    });
+
+    const visibleLimit = showAllListings ? sortedCards.length : 4;
+
+    sortedCards.forEach((card, index) => {
+      card.hidden = index >= visibleLimit;
+      grid.appendChild(card);
+    });
+
+    if (loadMore instanceof HTMLButtonElement) loadMore.hidden = sortedCards.length <= visibleLimit;
+    if (empty) empty.hidden = sortedCards.length !== 0;
+  }
+
+  function resetMarketplaceListings() {
+    showAllListings = false;
+    updateMarketplaceListings();
+  }
+
+  search?.addEventListener("input", resetMarketplaceListings);
+  category?.addEventListener("change", resetMarketplaceListings);
+  status?.addEventListener("change", resetMarketplaceListings);
+  sort?.addEventListener("change", resetMarketplaceListings);
+  loadMore?.addEventListener("click", () => {
+    showAllListings = true;
+    updateMarketplaceListings();
+  });
+
+  fetch("assets/facebook-listings/listings.json?v=20260927a")
+    .then((response) => {
+      if (!response.ok) throw new Error(`Listing archive request failed with ${response.status}`);
+      return response.json();
+    })
+    .then((listings) => {
+      if (!grid || !Array.isArray(listings)) return;
+      const techListings = listings.filter((listing) => (
+        listing.image
+        && listingCategory(String(listing.title || "")) !== "other"
+      ));
+      grid.replaceChildren(...techListings.map(createListingCard));
+      cards = Array.from(grid.querySelectorAll("[data-listing-card]"));
+      updateMarketplaceListings();
+    })
+    .catch(() => {
+      cards.forEach((card) => {
+        card.dataset.status = "available";
+      });
+      updateMarketplaceListings();
+    });
+}
