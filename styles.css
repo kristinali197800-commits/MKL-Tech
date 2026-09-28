@@ -4475,7 +4475,11 @@ body:not(.impact-home-page) {
 .page-hero h1 {
   background: linear-gradient(105deg, #f3fff9 8%, #80f1c8 56%, #56ddd1 100%);
   background-size: 100% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
   animation: none;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .site-header.impact-header {
