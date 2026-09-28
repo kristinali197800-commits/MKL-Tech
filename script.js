@@ -21,6 +21,12 @@ updateHeader();
 window.addEventListener("scroll", updateHeader, { passive: true });
 
 if (navToggle && nav) {
+  function closeNavigation() {
+    nav.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+    navToggle.setAttribute("aria-label", "Open navigation");
+  }
+
   navToggle.addEventListener("click", () => {
     const isOpen = nav.classList.toggle("open");
     navToggle.setAttribute("aria-expanded", String(isOpen));
@@ -29,10 +35,18 @@ if (navToggle && nav) {
 
   nav.addEventListener("click", (event) => {
     if (event.target instanceof HTMLAnchorElement) {
-      nav.classList.remove("open");
-      navToggle.setAttribute("aria-expanded", "false");
-      navToggle.setAttribute("aria-label", "Open navigation");
+      closeNavigation();
     }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !nav.classList.contains("open")) return;
+    closeNavigation();
+    navToggle.focus();
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 720) closeNavigation();
   });
 }
 
@@ -46,8 +60,9 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   let autoplayTimer = null;
   const isPortfolio = carousel.dataset.carousel === "portfolio";
   const isCoverflow = isPortfolio || carousel.dataset.carousel === "reviews";
-  const shouldAutoplay = isCoverflow
-    && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Carousels should stay under the visitor's control. Automatic movement made
+  // longer reviews difficult to read and made the portfolio feel unstable.
+  const shouldAutoplay = false;
   const dots = [];
   const requestedBuild = new URLSearchParams(window.location.search).get("build") || window.location.hash.replace("#build-", "");
   const requestedIndex = requestedBuild
@@ -290,30 +305,13 @@ if (heroCanvas instanceof HTMLCanvasElement) {
   }
 }
 
-const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
 const revealTargets = document.querySelectorAll(
   ".impact-section-heading, .inventory-photo, .lifecycle-grid li, .trade-process-card, .tech-category, .win-win-grid article, .metrics-grid, .methodology, .impact-page-cta"
 );
 
-if (!motionPreference.matches && "IntersectionObserver" in window) {
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add("is-visible");
-      observer.unobserve(entry.target);
-    });
-  }, { rootMargin: "0px 0px -8%", threshold: 0.12 });
-
-  revealTargets.forEach((target, index) => {
-    target.classList.add("is-reveal");
-    if (target instanceof HTMLElement) {
-      target.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
-    }
-    revealObserver.observe(target);
-  });
-} else {
-  revealTargets.forEach((target) => target.classList.add("is-visible"));
-}
+// Keep page content immediately available. Scroll-triggered opacity transitions
+// previously left blank sections during quick scrolling and browser navigation.
+revealTargets.forEach((target) => target.classList.add("is-visible"));
 
 const marketplaceShop = document.querySelector("[data-marketplace-shop]");
 

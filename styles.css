@@ -4,10 +4,10 @@
   --paper: #0b1830;
   --ink: #eef6ff;
   --muted: #aeb9ce;
-  --line: rgba(146, 169, 255, 0.2);
-  --accent: #8c63ff;
-  --accent-strong: #6ddcff;
-  --accent-soft: rgba(140, 99, 255, 0.16);
+  --line: rgba(71, 220, 180, 0.2);
+  --accent: #28d6a1;
+  --accent-strong: #48e8bd;
+  --accent-soft: rgba(39, 215, 162, 0.14);
   --charcoal: #010712;
   --shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
 }
@@ -4406,6 +4406,7 @@ body.impact-home-page {
 }
 
 .shop-archive-main {
+  overflow-x: clip;
   min-height: calc(100vh - 220px);
   padding-top: 82px;
 }
@@ -4423,5 +4424,276 @@ body.impact-home-page {
   .shop-archive-main .marketplace-shop {
     padding-top: 38px;
     padding-bottom: 64px;
+  }
+}
+
+/* Production stability pass: calm motion, consistent emerald accents, and
+   compact mobile layouts across every customer-facing page. */
+main,
+body.impact-home-page main {
+  animation: none;
+}
+
+body.impact-home-page::before,
+.impact-hero::before {
+  animation: none;
+}
+
+.is-reveal,
+.is-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+#hero-title,
+.hero-title-line {
+  animation: none;
+}
+
+.hero-title-line {
+  opacity: 1;
+  filter: none;
+  clip-path: none;
+  transform: none;
+}
+
+.site-nav a.active {
+  border-color: rgba(56, 239, 179, 0.5);
+  background: rgba(56, 239, 179, 0.09);
+  box-shadow: inset 0 0 28px rgba(56, 239, 179, 0.035);
+}
+
+body:not(.impact-home-page) {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(39, 215, 202, 0.12), transparent 31%),
+    radial-gradient(circle at 88% 18%, rgba(24, 173, 126, 0.13), transparent 34%),
+    linear-gradient(155deg, #020a11 0%, #04181d 48%, #031116 100%);
+}
+
+.hero h1,
+.page-hero h1 {
+  background: linear-gradient(105deg, #f3fff9 8%, #80f1c8 56%, #56ddd1 100%);
+  background-size: 100% 100%;
+  animation: none;
+}
+
+.site-header.impact-header {
+  background: linear-gradient(90deg, rgba(1, 7, 18, 0.96), rgba(3, 20, 23, 0.94), rgba(4, 15, 19, 0.96));
+}
+
+.carousel-pill {
+  border-color: rgba(71, 220, 180, 0.22);
+  background: rgba(5, 25, 28, 0.78);
+}
+
+.carousel-pill:hover {
+  border-color: rgba(71, 220, 180, 0.62);
+  background: rgba(17, 110, 81, 0.34);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.24), 0 0 24px rgba(36, 209, 151, 0.12);
+}
+
+.carousel-shell[data-carousel="portfolio"] .carousel-frame,
+.review-carousel-shell[data-carousel="reviews"] .review-frame {
+  background: radial-gradient(circle at 50% 45%, rgba(30, 203, 148, 0.1), transparent 50%), rgba(1, 12, 16, 0.36);
+}
+
+.review-carousel-shell[data-carousel="reviews"] .review-slide {
+  border-color: rgba(71, 220, 180, 0.2);
+  background: linear-gradient(145deg, rgba(8, 31, 38, 0.94), rgba(3, 15, 21, 0.98));
+}
+
+.impact-story-page .win-win-grid article,
+.impact-story-page .metrics-grid article,
+.impact-story-page .methodology {
+  border-color: rgba(71, 220, 180, 0.2);
+  background: linear-gradient(145deg, rgba(8, 31, 38, 0.94), rgba(3, 15, 21, 0.98));
+}
+
+.impact-story-page .win-win-grid .material-symbols-rounded,
+.trade-form-copy a {
+  color: #4de9bc;
+}
+
+.impact-story-page .impact-metrics {
+  background: linear-gradient(180deg, rgba(3, 16, 22, 0.68), rgba(4, 14, 18, 0.82));
+}
+
+.carousel-pill:focus-visible,
+.site-nav a:focus-visible,
+.impact-button:focus-visible,
+.listing-controls input:focus-visible,
+.listing-controls select:focus-visible,
+.request-form input:focus-visible,
+.request-form select:focus-visible,
+.request-form textarea:focus-visible {
+  outline: 3px solid rgba(56, 239, 179, 0.78);
+  outline-offset: 3px;
+}
+
+.impact-button.primary,
+.impact-nav a.nav-trade,
+.impact-nav a.nav-trade.active {
+  border-color: rgba(79, 242, 193, 0.76);
+  background: linear-gradient(115deg, #08ad78, #39e2b1 58%, #34d8c6);
+  color: #01120f;
+  box-shadow: 0 14px 38px rgba(23, 207, 151, 0.2), inset 0 1px rgba(255, 255, 255, 0.32);
+}
+
+.impact-button.primary:hover,
+.impact-button.primary:focus-visible,
+.impact-nav a.nav-trade:hover,
+.impact-nav a.nav-trade:focus-visible {
+  background: linear-gradient(115deg, #13bf88, #51edbd 58%, #4fe2d3);
+}
+
+.impact-kicker,
+.section-kicker {
+  background: linear-gradient(90deg, #49efba, #53ded2);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.carousel-shell[data-carousel="portfolio"] .carousel-slide,
+.review-carousel-shell[data-carousel="reviews"] .review-slide {
+  transition: opacity 240ms ease-out, transform 260ms ease-out, border-color 180ms ease-out;
+}
+
+@media (max-width: 720px) {
+  .page-hero {
+    padding-top: 92px;
+    padding-bottom: 28px;
+  }
+
+  .page-hero h1,
+  .page-hero.centered h1 {
+    font-size: clamp(2.15rem, 10.5vw, 3.1rem);
+    line-height: 1.02;
+  }
+
+  .page-hero p:last-child {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .carousel-section.compact-page {
+    padding-top: 12px;
+    padding-bottom: 54px;
+  }
+
+  .carousel-shell[data-carousel="portfolio"] .carousel-slide {
+    width: 100%;
+  }
+
+  .carousel-shell[data-carousel="portfolio"] .carousel-slide img {
+    height: clamp(240px, 76vw, 320px);
+  }
+
+  .carousel-shell[data-carousel="portfolio"] .carousel-copy {
+    min-height: 84px;
+    padding: 16px;
+  }
+
+  .carousel-shell[data-carousel="portfolio"] .carousel-copy h2 {
+    font-size: 0.94rem;
+    line-height: 1.38;
+  }
+
+  .carousel-shell[data-carousel="portfolio"] .carousel-slide.prev-preview,
+  .carousel-shell[data-carousel="portfolio"] .carousel-slide.next-preview,
+  .review-carousel-shell[data-carousel="reviews"] .review-slide.prev-preview,
+  .review-carousel-shell[data-carousel="reviews"] .review-slide.next-preview {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .review-carousel-shell[data-carousel="reviews"] .review-frame {
+    min-height: 330px;
+    padding-block: 10px;
+  }
+
+  .review-carousel-shell[data-carousel="reviews"] .review-slide {
+    width: 100%;
+    min-height: 300px;
+    padding: 24px 20px;
+  }
+
+  .review-carousel-shell[data-carousel="reviews"] .review-slide p {
+    font-size: clamp(1rem, 4.8vw, 1.28rem);
+    line-height: 1.55;
+  }
+
+  .impact-story-main {
+    padding-top: 74px;
+  }
+
+  .impact-story-hero {
+    width: min(100% - 32px, 1080px);
+    min-height: 0;
+    padding: 68px 0 54px;
+  }
+
+  .impact-story-hero h1 {
+    font-size: clamp(2.5rem, 11.6vw, 3.45rem);
+    line-height: 0.98;
+  }
+
+  .impact-story-hero > p:not(.impact-kicker) {
+    margin-top: 22px;
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  .impact-story-page .impact-section {
+    padding: 54px 0;
+  }
+
+  .impact-story-page .impact-section-heading {
+    margin-bottom: 26px;
+  }
+
+  .impact-story-page .impact-section-heading h2,
+  .impact-story-page .impact-page-cta h2 {
+    font-size: clamp(2rem, 9.8vw, 2.8rem);
+    line-height: 1.04;
+  }
+
+  .impact-story-page .win-win-grid {
+    gap: 12px;
+  }
+
+  .impact-story-page .win-win-grid article {
+    padding: 24px;
+  }
+
+  .impact-story-page .win-win-grid h3 {
+    margin-top: 24px;
+  }
+
+  .trade-main {
+    width: min(100% - 28px, 1320px);
+    padding: 108px 0 64px;
+  }
+
+  .trade-intro {
+    margin-bottom: 38px;
+  }
+
+  .trade-intro h1 {
+    font-size: clamp(2.35rem, 11vw, 3.3rem);
+    line-height: 1.02;
+  }
+
+  .trade-intro .impact-trust {
+    margin-top: 24px;
+  }
+
+  .trade-form-shell {
+    padding: 22px 16px;
+  }
+
+  .trade-form-copy h2 {
+    font-size: clamp(1.9rem, 9vw, 2.5rem);
   }
 }
