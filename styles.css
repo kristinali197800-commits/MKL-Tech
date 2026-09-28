@@ -4482,6 +4482,15 @@ body:not(.impact-home-page) {
   -webkit-text-fill-color: transparent;
 }
 
+.impact-story-hero h1,
+.impact-page-cta h2 {
+  background: linear-gradient(105deg, #f3fff9 8%, #80f1c8 56%, #56ddd1 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
 .site-header.impact-header {
   background: linear-gradient(90deg, rgba(1, 7, 18, 0.96), rgba(3, 20, 23, 0.94), rgba(4, 15, 19, 0.96));
 }
