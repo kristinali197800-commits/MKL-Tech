@@ -50,6 +50,78 @@ if (navToggle && nav) {
   });
 }
 
+document.querySelectorAll("[data-ajax-form]").forEach((form) => {
+  if (!(form instanceof HTMLFormElement)) return;
+
+  const submitButton = form.querySelector('button[type="submit"]');
+  const status = form.querySelector("[data-form-status]");
+  const defaultButtonText = submitButton?.textContent || "Submit";
+
+  function showStatus(message, state, fallbackHref = "") {
+    if (!(status instanceof HTMLElement)) return;
+    status.hidden = false;
+    status.className = `form-status ${state}`;
+    status.replaceChildren(document.createTextNode(message));
+
+    if (fallbackHref) {
+      const link = document.createElement("a");
+      link.className = "form-email-fallback";
+      link.href = fallbackHref;
+      link.textContent = "Email this request instead";
+      status.append(document.createElement("br"), link);
+    }
+  }
+
+  function buildEmailFallback(data) {
+    const subject = "MKL-Tech sell or trade-in request";
+    const ignoredFields = new Set(["_subject"]);
+    const lines = [];
+
+    data.forEach((value, key) => {
+      if (ignoredFields.has(key) || value instanceof File || !String(value).trim()) return;
+      const label = key.replaceAll("_", " ").replace(/^./, (letter) => letter.toUpperCase());
+      lines.push(`${label}: ${value}`);
+    });
+
+    lines.push("", "Please attach device photos to this email before sending.");
+    return `mailto:mkl.tech.pc@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const formData = new FormData(form);
+    const fallbackHref = buildEmailFallback(formData);
+
+    if (submitButton instanceof HTMLButtonElement) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending…";
+    }
+    if (status instanceof HTMLElement) status.hidden = true;
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" }
+      });
+
+      if (!response.ok) throw new Error(`Form request failed with ${response.status}`);
+
+      form.reset();
+      showStatus("Thanks — your request was sent. MKL-Tech will follow up by email.", "success");
+    } catch (error) {
+      showStatus("The online form could not send right now. Your details are still here.", "error", fallbackHref);
+    } finally {
+      if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = false;
+        submitButton.textContent = defaultButtonText;
+      }
+    }
+  });
+});
+
 document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   const slides = Array.from(carousel.querySelectorAll(".carousel-slide, .review-slide"));
   const previousButtons = carousel.querySelectorAll("[data-carousel-prev]");

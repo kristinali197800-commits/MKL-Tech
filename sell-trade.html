@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#020713">
     <link rel="icon" type="image/png" sizes="512x512" href="assets/mkl-favicon-v2.png">
     <link rel="apple-touch-icon" href="assets/mkl-favicon-v2.png">
-    <link rel="stylesheet" href="styles.css?v=20260927k">
+    <link rel="stylesheet" href="styles.css?v=20261101a">
   </head>
   <body class="impact-home-page trade-page">
     <header class="site-header impact-header solid" data-header>
@@ -37,7 +37,7 @@
           <p>Phones, tablets, MacBooks, laptops, PCs, monitors, components, and accessories are all welcome.</p>
           <p><strong>Prefer email?</strong><br><a href="mailto:mkl.tech.pc@gmail.com">mkl.tech.pc@gmail.com</a></p>
         </div>
-        <form class="request-form trade-form" action="https://formspree.io/f/mjkdzejd" method="POST" enctype="multipart/form-data" data-request-form>
+        <form class="request-form trade-form" action="https://formspree.io/f/mjkdzejd" method="POST" data-request-form data-ajax-form>
           <div class="form-row two">
             <div><label for="trade-name">Name</label><input id="trade-name" name="name" type="text" autocomplete="name" required></div>
             <div><label for="trade-email">Email</label><input id="trade-email" name="email" type="email" autocomplete="email" required></div>
@@ -52,14 +52,16 @@
             <div><label for="device-location">Your city</label><input id="device-location" name="city" type="text" placeholder="Cherry Hill, NJ" required></div>
           </div>
           <div class="form-row"><label for="device-details">Specs, included accessories, and any issues</label><textarea id="device-details" name="device_details" rows="5" placeholder="Storage, RAM, battery health, charger/box, cracks, repairs, locked accounts, or anything else we should know." required></textarea></div>
-          <div class="form-row"><label for="device-photos">Device photos</label><input id="device-photos" name="device_photos" type="file" accept="image/*" multiple required><small>Upload clear photos of the front, back, screen, ports, accessories, and any wear or damage.</small></div>
+          <div class="form-row"><label for="photo-note">Device photos</label><input id="photo-note" name="photo_note" type="text" placeholder="Optional: paste a Google Photos, iCloud, or Drive link"><small>After submitting, you can also email photos of the front, back, screen, ports, accessories, and any wear or damage directly to <a href="mailto:mkl.tech.pc@gmail.com">mkl.tech.pc@gmail.com</a>.</small></div>
           <input type="hidden" name="source" value="MKL-Tech sell or trade-in form">
+          <input type="hidden" name="_subject" value="New MKL-Tech sell or trade-in request">
           <button class="impact-button primary trade-submit" type="submit">Request My Offer</button>
+          <p class="form-status" data-form-status role="status" aria-live="polite" hidden></p>
           <p class="form-privacy">Submitting this form starts an inspection request. It does not guarantee a purchase or trade-in value.</p>
         </form>
       </section>
     </main>
     <footer class="site-footer impact-footer"><div><img src="assets/mkl-logo-round.png" alt=""><span>MKL-Tech</span></div><p>Clear your clutter. Power your community.</p><small>&copy; <span data-year></span> MKL-Tech. All rights reserved.</small></footer>
-    <script src="script.js?v=20260927k"></script>
+    <script src="script.js?v=20261101a"></script>
   </body>
 </html>
