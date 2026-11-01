@@ -1,3 +1,16 @@
+// Privacy-friendly, cookie-free traffic analytics provided by Vercel.
+window.va = window.va || function () {
+  (window.vaq = window.vaq || []).push(arguments);
+};
+
+if (!document.querySelector("script[data-vercel-analytics]")) {
+  const analyticsScript = document.createElement("script");
+  analyticsScript.defer = true;
+  analyticsScript.src = "/_vercel/insights/script.js";
+  analyticsScript.dataset.vercelAnalytics = "true";
+  document.head.appendChild(analyticsScript);
+}
+
 const header = document.querySelector("[data-header]");
 const nav = document.querySelector("[data-nav]");
 const navToggle = document.querySelector("[data-nav-toggle]");
